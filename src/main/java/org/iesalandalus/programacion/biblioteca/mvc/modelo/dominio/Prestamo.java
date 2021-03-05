@@ -1,16 +1,18 @@
 package org.iesalandalus.programacion.biblioteca.mvc.modelo.dominio;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 /**
  * @author: Jonathan Simón Sánchez
- * 
+ * @version: 3
  **/
 
-public class Prestamo {
+public class Prestamo implements Serializable{
 
+	
 	// Atributos y constantes
 	private static final int MAX_DIAS_PRESTAMO = 20;
 	public static final DateTimeFormatter FORMATO_FECHA = DateTimeFormatter.ofPattern("dd/MM/YYYY");
@@ -20,6 +22,9 @@ public class Prestamo {
 
 	private Alumno alumno;
 	private Libro libro;
+	
+	// Atributo recomendado para evitar errores en la deserialización
+	private static final long serialVersionUID = 50L;
 
 	// CONSTRUCTORES
 	public Prestamo(Alumno alumno, Libro libro, LocalDate fecha) {

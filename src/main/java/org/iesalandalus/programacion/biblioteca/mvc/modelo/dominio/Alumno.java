@@ -1,10 +1,12 @@
 package org.iesalandalus.programacion.biblioteca.mvc.modelo.dominio;
 
+import java.io.Serializable;
+
 /**
  * @author: Jonathan Simón Sánchez
- * 
+ * @version: 3
  **/
-public class Alumno {
+public class Alumno implements Serializable{
 
 	// Atributos y constantes
 	
@@ -13,6 +15,10 @@ public class Alumno {
 	private String nombre;
 	private String correo; 
 	private Curso curso;
+	
+	// Atributo recomendado para evitar errores en la deserialización
+	private static final long serialVersionUID = 50L; 
+
 
 	// M. Constructores
 	
