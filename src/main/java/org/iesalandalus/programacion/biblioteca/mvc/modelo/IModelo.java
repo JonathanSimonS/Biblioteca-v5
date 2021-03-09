@@ -1,5 +1,6 @@
 package org.iesalandalus.programacion.biblioteca.mvc.modelo;
 
+import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,7 @@ import org.iesalandalus.programacion.biblioteca.mvc.modelo.dominio.Alumno;
 import org.iesalandalus.programacion.biblioteca.mvc.modelo.dominio.Curso;
 import org.iesalandalus.programacion.biblioteca.mvc.modelo.dominio.Libro;
 import org.iesalandalus.programacion.biblioteca.mvc.modelo.dominio.Prestamo;
+
 /**
  * @author Jonathan Simón
  * @version v2
@@ -18,6 +20,10 @@ import org.iesalandalus.programacion.biblioteca.mvc.modelo.dominio.Prestamo;
 public interface IModelo {
 
 	// Métodos
+	public void comenzar() throws FileNotFoundException;
+
+	public void terminar() throws FileNotFoundException;
+
 	void insertar(Alumno alumno) throws OperationNotSupportedException;
 
 	void insertar(Libro libro) throws OperationNotSupportedException;

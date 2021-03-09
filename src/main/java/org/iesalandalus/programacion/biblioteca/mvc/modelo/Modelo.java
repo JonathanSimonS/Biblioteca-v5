@@ -1,5 +1,6 @@
 package org.iesalandalus.programacion.biblioteca.mvc.modelo;
 
+import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +36,17 @@ public class Modelo implements IModelo {
 	}
 
 	// Métodos
+	public void comenzar() throws FileNotFoundException {
+		alumnos.comenzar();
+		libros.comenzar();
+		prestamos.comenzar();
+	}
+	public void terminar() throws FileNotFoundException {
+		alumnos.terminar();
+		libros.terminar();
+		prestamos.terminar();
+	}
+	
 	@Override
 	public void insertar(Alumno alumno) throws OperationNotSupportedException {
 		alumnos.insertar(alumno);
