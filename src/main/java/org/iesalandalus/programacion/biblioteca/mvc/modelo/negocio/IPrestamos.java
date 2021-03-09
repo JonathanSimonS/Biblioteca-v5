@@ -19,6 +19,10 @@ import org.iesalandalus.programacion.biblioteca.mvc.modelo.dominio.Prestamo;
  *
  */
 public interface IPrestamos {
+	public void comenzar();
+
+	public void terminar();
+
 	public List<Prestamo> get();
 
 	public List<Prestamo> get(Alumno alumno);
@@ -45,9 +49,9 @@ public interface IPrestamos {
 	 * @param: dos fechas
 	 * @return: true si las dos fechas son del mismo mes, false si no lo son
 	 **/
-	
+
 	public int getTamano();
-	
+
 	public Map<Curso, Integer> getEstadisticaMensualPorCurso(LocalDate fecha);
 
 	/**
