@@ -14,6 +14,9 @@ import org.iesalandalus.programacion.biblioteca.mvc.modelo.dominio.Libro;
  *
  */
 public interface ILibros {
+	public void comenzar();
+
+	public void terminar();
 	
 	public List<Libro> get();
 
