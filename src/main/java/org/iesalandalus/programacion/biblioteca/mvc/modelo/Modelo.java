@@ -36,12 +36,12 @@ public class Modelo implements IModelo {
 	}
 
 	// Métodos
-	public void comenzar() throws FileNotFoundException {
+	public void comenzar()  {
 		alumnos.comenzar();
 		libros.comenzar();
 		prestamos.comenzar();
 	}
-	public void terminar() throws FileNotFoundException {
+	public void terminar()  {
 		alumnos.terminar();
 		libros.terminar();
 		prestamos.terminar();

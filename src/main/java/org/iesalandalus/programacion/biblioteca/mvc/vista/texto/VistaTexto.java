@@ -47,7 +47,6 @@ public class VistaTexto implements IVista {
 	}
 
 	// Métodos Alumno
-	@Override
 	public void insertarAlumno() {
 		try {
 			controlador.insertar(Consola.leerAlumno());
@@ -57,7 +56,6 @@ public class VistaTexto implements IVista {
 		}
 	}
 
-	@Override
 	public void buscarAlumno() {
 		Alumno alumno;
 		try {
@@ -69,7 +67,6 @@ public class VistaTexto implements IVista {
 		}
 	}
 
-	@Override
 	public void borrarAlumno() {
 		try {
 			controlador.borrar(Consola.leerAlumnoFicticio());
@@ -79,7 +76,6 @@ public class VistaTexto implements IVista {
 		}
 	}
 
-	@Override
 	public void listarAlumnos() {
 		List<Alumno> alumnos = controlador.getAlumnos();
 		if (alumnos != null) {
@@ -93,7 +89,6 @@ public class VistaTexto implements IVista {
 	}
 
 	// Métodos Libro
-	@Override
 	public void insertarLibro() {
 		try {
 			controlador.insertar(Consola.leerLibro());
@@ -103,7 +98,6 @@ public class VistaTexto implements IVista {
 		}
 	}
 
-	@Override
 	public void buscarLibro() {
 		Libro libro;
 		try {
@@ -115,7 +109,6 @@ public class VistaTexto implements IVista {
 		}
 	}
 
-	@Override
 	public void borrarLibro() {
 		try {
 			controlador.borrar(Consola.leerLibroFicticio());
@@ -125,7 +118,6 @@ public class VistaTexto implements IVista {
 		}
 	}
 
-	@Override
 	public void listarLibros() {
 		List<Libro> libros = controlador.getLibros();
 		if (libros != null) {
@@ -138,7 +130,6 @@ public class VistaTexto implements IVista {
 		}
 	}
 
-	@Override
 	public void prestarLibro() {
 		try {
 			controlador.prestar(Consola.leerPrestamo());
@@ -148,7 +139,7 @@ public class VistaTexto implements IVista {
 		}
 	}
 
-	@Override
+
 	public void devolverLibro() {
 		try {
 			controlador.devolver(Consola.leerPrestamo(), LocalDate.now());
@@ -160,7 +151,7 @@ public class VistaTexto implements IVista {
 
 	// Métodos Prestamo
 
-	@Override
+
 	public void buscarPrestamo() {
 		Prestamo prestamo;
 		try {
@@ -172,7 +163,7 @@ public class VistaTexto implements IVista {
 		}
 	}
 
-	@Override
+
 	public void borrarPrestamo() {
 		try {
 			controlador.borrar(Consola.leerPrestamoFicticio());
@@ -182,7 +173,7 @@ public class VistaTexto implements IVista {
 		}
 	}
 
-	@Override
+
 	public void listarPrestamos() {
 		List<Prestamo> prestamos = controlador.getPrestamos();
 		if (prestamos != null) {
@@ -195,7 +186,7 @@ public class VistaTexto implements IVista {
 		}
 	}
 
-	@Override
+
 	public void listarPrestamosAlumno() {
 		List<Prestamo> prestamos = controlador.getPrestamos(Consola.leerAlumnoFicticio());
 		if (prestamos != null) {
@@ -208,7 +199,7 @@ public class VistaTexto implements IVista {
 		}
 	}
 
-	@Override
+	
 	public void listarPrestamosLibro() {
 		List<Prestamo> prestamos = controlador.getPrestamos(Consola.leerLibroFicticio());
 		if (prestamos != null) {
@@ -221,7 +212,6 @@ public class VistaTexto implements IVista {
 		}
 	}
 
-	@Override
 	public void listarPrestamosFecha() {
 		List<Prestamo> prestamos = controlador.getPrestamos(Consola.leerPrestamo().getFechaPrestamo());
 		if (prestamos != null) {
@@ -234,7 +224,7 @@ public class VistaTexto implements IVista {
 		}
 	}
 
-	@Override
+
 	public void mostrarEstadisticaMensualPorCurso() {
 		Prestamo prestamo = controlador.buscar(Consola.leerPrestamoFicticio());
 		LocalDate fecha = prestamo.getFechaPrestamo();

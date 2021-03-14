@@ -20,9 +20,9 @@ import org.iesalandalus.programacion.biblioteca.mvc.modelo.dominio.Prestamo;
 public interface IModelo {
 
 	// Métodos
-	public void comenzar() throws FileNotFoundException;
+	public void comenzar();
 
-	public void terminar() throws FileNotFoundException;
+	public void terminar();
 
 	void insertar(Alumno alumno) throws OperationNotSupportedException;
 

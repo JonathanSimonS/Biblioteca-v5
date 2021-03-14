@@ -14,9 +14,9 @@ import org.iesalandalus.programacion.biblioteca.mvc.modelo.dominio.Alumno;
  */
 public interface IAlumnos {
 	
-	public void comenzar()throws FileNotFoundException;
+	public void comenzar();
 
-	public void terminar() throws FileNotFoundException;
+	public void terminar();
 
 	public List<Alumno> get();
 
