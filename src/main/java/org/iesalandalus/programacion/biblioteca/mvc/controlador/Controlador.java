@@ -44,11 +44,13 @@ public class Controlador implements IControlador {
 	// Métodos
 	@Override
 	public void comenzar() {
+		modelo.comenzar();
 		vista.comenzar();
 	}
 
 	@Override
 	public void terminar() {
+		modelo.terminar();
 		System.out.println("Muchas gracias por su tiempo.");
 	}
 
