@@ -20,9 +20,9 @@ import org.iesalandalus.programacion.biblioteca.mvc.modelo.dominio.Prestamo;
 public interface IModelo {
 
 	// Métodos
-	public void comenzar();
+	void comenzar();
 
-	public void terminar();
+	void terminar();
 
 	void insertar(Alumno alumno) throws OperationNotSupportedException;
 

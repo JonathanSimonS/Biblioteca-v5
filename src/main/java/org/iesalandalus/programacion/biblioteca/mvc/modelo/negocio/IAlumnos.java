@@ -3,7 +3,6 @@
  */
 package org.iesalandalus.programacion.biblioteca.mvc.modelo.negocio;
 
-import java.io.FileNotFoundException;
 import java.util.List;
 import javax.naming.OperationNotSupportedException;
 import org.iesalandalus.programacion.biblioteca.mvc.modelo.dominio.Alumno;

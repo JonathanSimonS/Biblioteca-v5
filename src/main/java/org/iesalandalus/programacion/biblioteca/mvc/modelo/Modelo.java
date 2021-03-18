@@ -36,11 +36,14 @@ public class Modelo implements IModelo {
 	}
 
 	// Métodos
+	@Override
 	public void comenzar()  {
 		alumnos.comenzar();
 		libros.comenzar();
 		prestamos.comenzar();
 	}
+	
+	@Override
 	public void terminar()  {
 		alumnos.terminar();
 		libros.terminar();

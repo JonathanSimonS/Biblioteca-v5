@@ -23,8 +23,8 @@ import org.iesalandalus.programacion.biblioteca.mvc.vista.texto.VistaTexto;
 public class Controlador implements IControlador {
 
 	// Atributos
-	private IModelo modelo;
-	private IVista vista;
+	IModelo modelo;
+	IVista vista;
 
 	// M.Constructor
 	public Controlador(IModelo modelo, IVista vista) {

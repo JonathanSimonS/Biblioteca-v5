@@ -26,13 +26,14 @@ public class Alumnos implements IAlumnos {
 	}
 
 	// Métodos
-
+	@Override
 	public void comenzar() {
 		leer();
 	}
 
 	private void leer() {
 		File ficheroAlumnos = new File(NOMBRE_FICHERO_ALUMNOS);
+		// FileInputStream lee el flujo de byte del fichero
 		try (ObjectInputStream entrada = new ObjectInputStream(new FileInputStream(ficheroAlumnos))) {
 			Alumno alumno = null;
 			do {
@@ -40,7 +41,7 @@ public class Alumnos implements IAlumnos {
 				insertar(alumno);
 			} while (alumno != null);
 		} catch (ClassNotFoundException e) {
-			System.out.println("No puedo encontrar la clase que tengo que leer.");
+			System.out.println("No puedo encontrar el alumno que tengo que leer.");
 		} catch (FileNotFoundException e) {
 			System.out.println("No puedo abrir el fichero de alumnos.");
 		} catch (EOFException e) {
@@ -51,12 +52,15 @@ public class Alumnos implements IAlumnos {
 			System.out.println(e.getMessage());
 		}
 	}
+
 	public void terminar() {
 		escribir();
 	}
 
 	private void escribir() {
 		File ficheroAlumnos = new File(NOMBRE_FICHERO_ALUMNOS);
+		// FileOutputStream recibe el objeto que representa el flujo de datos para el
+		// dispositivo de salida
 		try (ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream(ficheroAlumnos))) {
 			for (Alumno alumno : coleccionAlumnos)
 				salida.writeObject(alumno);
