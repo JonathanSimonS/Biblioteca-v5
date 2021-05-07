@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Point3D?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="vbBiblioteca" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="698.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.iesalandalus.programacion.biblioteca.mvc.vista.iugpestanas.controladoresvistas.ControladorEscenarioPrincipal">
+   <children>
+      <MenuBar fx:id="mbBiblioteca">
+         <menus>
+            <Menu fx:id="mBiblioteca" mnemonicParsing="false" text="Menu">
+               <items>
+                  <MenuItem fx:id="miGuardar" mnemonicParsing="false" text="Guardar" />  <!-- implementar método para guardar --> 
+                  <MenuItem fx:id="miSalir" mnemonicParsing="false" onAction="#salir" text="Salir" />
+               </items>
+            </Menu>
+            <Menu fx:id="mAyuda" mnemonicParsing="false" text="Ayuda">
+               <items>
+                  <MenuItem fx:id="miAcercaDe" mnemonicParsing="false" onAction="#abrirAcercaDe" text="Acerca de" />
+               </items>
+            </Menu>
+         </menus>
+      </MenuBar>
+      <TabPane fx:id="tpBiblioteca" nodeOrientation="LEFT_TO_RIGHT" prefHeight="673.0" prefWidth="960.0" side="BOTTOM" tabClosingPolicy="UNAVAILABLE" tabMinWidth="300.0">
+         <tabs>
+            <Tab fx:id="tAlumnos" text="ALUMNOS">
+               <content>
+                  <VBox fx:id="vbAlumnos" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <ImageView fx:id="ivAlumnos" fitHeight="117.0" fitWidth="107.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imagenes/alumnos.png" />
+                           </image>
+                           <VBox.margin>
+                              <Insets bottom="10.0" top="10.0" />
+                           </VBox.margin>
+                        </ImageView>
+                        <TableView fx:id="tvAlumnos" prefHeight="492.0" prefWidth="930.0">
+                          <columns>
+                            <TableColumn fx:id="tcTANombre" prefWidth="404.0" text="Nombre" />
+                            <TableColumn fx:id="tcTACorreo" prefWidth="390.0" text="Correo" />
+                              <TableColumn fx:id="tcTACurso" prefWidth="135.0" text="Curso" />
+                          </columns>
+                           <VBox.margin>
+                              <Insets bottom="15.0" left="15.0" right="15.0" />
+                           </VBox.margin>
+                           <tooltip>
+                              <Tooltip text="Tabla de alumnos" />
+                           </tooltip>
+                           <contextMenu>
+                              <ContextMenu fx:id="cmAlumnos">
+                                 <items>
+                                    <MenuItem fx:id="miAnadirAlumno" mnemonicParsing="false" onAction="#anadirAlumno" text="Añadir alumno" />
+                                    <MenuItem fx:id="miBorrarAlumno" mnemonicParsing="false" onAction="#borrar" text="Borrar alumno" />
+                                 </items>
+                              </ContextMenu>
+                           </contextMenu>
+                        </TableView>
+                     </children>
+                  </VBox>
+               </content>
+            </Tab>
+            <Tab fx:id="tLibros" text="LIBROS">
+               <content>
+                  <VBox fx:id="vbLibros" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <ImageView fx:id="ivLibros" fitHeight="117.0" fitWidth="107.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imagenes/libros.png" />
+                           </image>
+                           <VBox.margin>
+                              <Insets bottom="10.0" top="10.0" />
+                           </VBox.margin>
+                        </ImageView>
+                        <TableView fx:id="tvLibros" prefHeight="492.0" prefWidth="930.0">
+                           <columns>
+                              <TableColumn fx:id="tcTLTitulo" prefWidth="403.0" text="Titulo" />
+                              <TableColumn fx:id="tcTLAutor" prefWidth="319.0" text="Autor" />
+                              <TableColumn fx:id="tcTLDuracion" prefWidth="120.0" text="Duracion(min)" />
+                              <TableColumn fx:id="tcTLPaginas" prefWidth="96.0" text="Paginas" />
+                           </columns>
+                           <VBox.margin>
+                              <Insets bottom="15.0" left="15.0" right="15.0" />
+                           </VBox.margin>
+                           <tooltip>
+                              <Tooltip text="Tabla de libros" />
+                           </tooltip>
+                           <contextMenu>
+                              <ContextMenu fx:id="cmLibros">
+                                <items>
+                                  <MenuItem fx:id="miAnadirLibro" mnemonicParsing="false" onAction="#anadirLibro" text="Añadir libro" />
+                                  <MenuItem fx:id="miPrestarLibro" mnemonicParsing="false" onAction="#prestarLibro" text="Prestar libro" />
+                                  <MenuItem fx:id="miBorrarLibro" mnemonicParsing="false" onAction="#borrar" text="Borrar libro" />
+                                </items>
+                              </ContextMenu>
+                           </contextMenu>
+                        </TableView>
+                     </children>
+                  </VBox>
+               </content>
+            </Tab>
+            <Tab fx:id="tPrestamos" text="PRESTAMOS">
+               <content>
+                  <VBox fx:id="vbPrestamos" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <ImageView fx:id="imPrestamos" fitHeight="117.0" fitWidth="107.0" pickOnBounds="true" preserveRatio="true">
+                           <VBox.margin>
+                              <Insets bottom="10.0" top="10.0" />
+                           </VBox.margin>
+                           <image>
+                              <Image url="@../imagenes/prestamos.png" />
+                           </image>
+                        </ImageView>
+                        <TableView fx:id="tvPrestamos" prefHeight="426.0" prefWidth="930.0">
+                           <columns>
+                              <TableColumn fx:id="tcTPAlumno" prefWidth="322.0" text="Alumno" />
+                              <TableColumn fx:id="tcTPLibro" prefWidth="319.0" text="Libro" />
+                              <TableColumn fx:id="tcTPFechaPrestamo" prefWidth="141.0" text="Fecha Prestamo" />
+                              <TableColumn fx:id="tcTPFechaDevolucion" prefWidth="147.0" text="Fecha Devolucion" />
+                           </columns>
+                           <VBox.margin>
+                              <Insets bottom="15.0" left="15.0" right="15.0" />
+                           </VBox.margin>
+                           <tooltip>
+                              <Tooltip text="Tabla de prestamos" />
+                           </tooltip>
+                           <contextMenu>
+                              <ContextMenu fx:id="cmPrestamos">
+                                <items>
+                                    <MenuItem fx:id="miPrestarLibro" mnemonicParsing="false" onAction="#prestarLibro" text="Prestar libro" />
+                                    <MenuItem fx:id="miDevolverLibro" mnemonicParsing="false" onAction="#devolverLibro" text="Devolver libro" />
+                                    <MenuItem fx:id="miListarPrestamo" mnemonicParsing="false" onAction="#listarPrestamo" text="Listar préstamos" />
+                                    <MenuItem fx:id="miListarPrestamoAlumno" mnemonicParsing="false" onAction="#listarPrestamo" text="Listar por Alumno" />
+                                    <MenuItem fx:id="miListarPrestamoLibro" mnemonicParsing="false" onAction="#listarPrestamo" text="Listar por Libro" />
+                                    <MenuItem fx:id="miListarPrestamoFecha" mnemonicParsing="false" onAction="#listarPrestamo" text="Listar por Fecha" />
+                                    <MenuItem fx:id="miBorrarPrestamo" mnemonicParsing="false" onAction="#borrar" text="Borrar préstamos" />
+                                </items>
+                              </ContextMenu>
+                           </contextMenu>
+                        </TableView>
+                        <Button fx:id="btMostrarEstadistica" mnemonicParsing="false" onAction="#mostrarEstadistica" text="Mostrar estadistica mensual por curso">
+                           <VBox.margin>
+                              <Insets top="25.0" />
+                           </VBox.margin></Button>
+                     </children>
+                  </VBox>
+               </content>
+            </Tab>
+         </tabs>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+         <rotationAxis>
+            <Point3D />
+         </rotationAxis>
+      </TabPane>
+   </children>
+</VBox>

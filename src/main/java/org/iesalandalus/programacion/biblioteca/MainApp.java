@@ -13,12 +13,27 @@ import org.iesalandalus.programacion.biblioteca.mvc.vista.IVista;
  * @version v2
  *
  **/
-public class MainApp {
+public class MainApp  {
 
 	public static void main(String[] args) {
 		IModelo modelo = new Modelo(FactoriaFuenteDatos.FICHEROS.crear());
-		IVista vista = FactoriaVista.TEXTO.crear();
+		IVista vista = procesarArgumentosVista(args);
 		IControlador controlador = new Controlador(modelo, vista);
 		controlador.comenzar();
 	}
+	
+	private static IVista procesarArgumentosVista(String[] args) {
+		IVista vista = FactoriaVista.IUGPESTANAS.crear();
+		for (String argumento : args) {
+			if (argumento.equalsIgnoreCase("-vpestanas")) {
+				vista = FactoriaVista.IUGPESTANAS.crear();
+			}
+			else if (argumento.equalsIgnoreCase("-vtexto")) {
+				vista = FactoriaVista.TEXTO.crear();
+			}
+		}
+		return vista;
+		
+	}
+
 }

@@ -24,14 +24,12 @@ public class VistaTexto implements IVista {
 
 	@Override
 	public void setControlador(IControlador controlador) {
-		if (controlador == null) {
-			throw new NullPointerException("ERROR: El controlador no puede ser nulo.");
-		}
 		this.controlador = controlador;
 	}
 
 	@Override
 	public void comenzar() {
+		Consola.mostrarCabecera("Gestión Biblioteca");
 		int opcion;
 		do {
 			Consola.mostrarMenu();
@@ -48,6 +46,7 @@ public class VistaTexto implements IVista {
 
 	// Métodos Alumno
 	public void insertarAlumno() {
+		Consola.mostrarCabecera("Insertar alumno");
 		try {
 			controlador.insertar(Consola.leerAlumno());
 			System.out.println("Alumno insertado.");
@@ -57,6 +56,7 @@ public class VistaTexto implements IVista {
 	}
 
 	public void buscarAlumno() {
+		Consola.mostrarCabecera("Buscar alumno");
 		Alumno alumno;
 		try {
 			alumno = controlador.buscar(Consola.leerAlumnoFicticio());
@@ -70,13 +70,15 @@ public class VistaTexto implements IVista {
 	public void borrarAlumno() {
 		try {
 			controlador.borrar(Consola.leerAlumnoFicticio());
-			System.out.println("Alumno borrado.");
+			System.out.println("Alumno borrado");
 		} catch (OperationNotSupportedException | IllegalArgumentException e) {
 			System.out.println(e.getMessage());
 		}
 	}
 
 	public void listarAlumnos() {
+		Consola.mostrarCabecera("Listar alumnos");
+
 		List<Alumno> alumnos = controlador.getAlumnos();
 		if (alumnos != null) {
 			for (Alumno alumno : alumnos) {
@@ -90,6 +92,8 @@ public class VistaTexto implements IVista {
 
 	// Métodos Libro
 	public void insertarLibro() {
+		Consola.mostrarCabecera("Insertar libro");
+
 		try {
 			controlador.insertar(Consola.leerLibro());
 			System.out.println("Libro insertado.");
@@ -99,6 +103,8 @@ public class VistaTexto implements IVista {
 	}
 
 	public void buscarLibro() {
+		Consola.mostrarCabecera("Buscar libro");
+
 		Libro libro;
 		try {
 			libro = controlador.buscar(Consola.leerLibroFicticio());
@@ -119,6 +125,8 @@ public class VistaTexto implements IVista {
 	}
 
 	public void listarLibros() {
+		Consola.mostrarCabecera("Listar libros");
+
 		List<Libro> libros = controlador.getLibros();
 		if (libros != null) {
 			for (Libro libro : libros) {
@@ -131,6 +139,8 @@ public class VistaTexto implements IVista {
 	}
 
 	public void prestarLibro() {
+		Consola.mostrarCabecera("Prestar libro");
+
 		try {
 			controlador.prestar(Consola.leerPrestamo());
 			System.out.println("Libro Prestado.");
@@ -141,6 +151,8 @@ public class VistaTexto implements IVista {
 
 
 	public void devolverLibro() {
+		Consola.mostrarCabecera("Devolver libro");
+
 		try {
 			controlador.devolver(Consola.leerPrestamo(), LocalDate.now());
 			System.out.println("Libro devuelto.");
@@ -153,6 +165,8 @@ public class VistaTexto implements IVista {
 
 
 	public void buscarPrestamo() {
+		Consola.mostrarCabecera("Buscar préstamo");
+
 		Prestamo prestamo;
 		try {
 			prestamo = controlador.buscar(Consola.leerPrestamoFicticio());
@@ -165,6 +179,8 @@ public class VistaTexto implements IVista {
 
 
 	public void borrarPrestamo() {
+		Consola.mostrarCabecera("Borrar préstamo");
+
 		try {
 			controlador.borrar(Consola.leerPrestamoFicticio());
 			System.out.println("Préstamo borrado.");
@@ -175,6 +191,8 @@ public class VistaTexto implements IVista {
 
 
 	public void listarPrestamos() {
+		Consola.mostrarCabecera("Listar préstamos");
+
 		List<Prestamo> prestamos = controlador.getPrestamos();
 		if (prestamos != null) {
 			for (Prestamo prestamo : prestamos) {
@@ -188,6 +206,8 @@ public class VistaTexto implements IVista {
 
 
 	public void listarPrestamosAlumno() {
+		Consola.mostrarCabecera("Listar préstamos por alumno");
+
 		List<Prestamo> prestamos = controlador.getPrestamos(Consola.leerAlumnoFicticio());
 		if (prestamos != null) {
 			for (Prestamo prestamo : prestamos) {
@@ -199,8 +219,9 @@ public class VistaTexto implements IVista {
 		}
 	}
 
-	
 	public void listarPrestamosLibro() {
+		Consola.mostrarCabecera("Listar préstamos por libro");
+
 		List<Prestamo> prestamos = controlador.getPrestamos(Consola.leerLibroFicticio());
 		if (prestamos != null) {
 			for (Prestamo prestamo : prestamos) {
@@ -213,6 +234,8 @@ public class VistaTexto implements IVista {
 	}
 
 	public void listarPrestamosFecha() {
+		Consola.mostrarCabecera("Listar préstamos por fecha");
+
 		List<Prestamo> prestamos = controlador.getPrestamos(Consola.leerPrestamo().getFechaPrestamo());
 		if (prestamos != null) {
 			for (Prestamo prestamo : prestamos) {
@@ -224,8 +247,9 @@ public class VistaTexto implements IVista {
 		}
 	}
 
-
 	public void mostrarEstadisticaMensualPorCurso() {
+		Consola.mostrarCabecera("Mostrar estadística mensual por curso");
+
 		Prestamo prestamo = controlador.buscar(Consola.leerPrestamoFicticio());
 		LocalDate fecha = prestamo.getFechaPrestamo();
 		String cadena = "";

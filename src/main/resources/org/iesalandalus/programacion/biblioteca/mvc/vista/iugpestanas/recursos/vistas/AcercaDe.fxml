@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="vbAcercaDe" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fx:id="ivAcercaDe" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+         <VBox.margin>
+            <Insets bottom="10.0" top="10.0" />
+         </VBox.margin>
+         <image>
+            <Image url="@../imagenes/acercaDe.png" />
+         </image>
+      </ImageView>
+      <Label text="BIBLIOTECA">
+         <VBox.margin>
+            <Insets top="10.0" />
+         </VBox.margin>
+      </Label>
+      <Label text="Jonathan Simon Sanchez">
+         <VBox.margin>
+            <Insets bottom="10.0" top="10.0" />
+         </VBox.margin>
+      </Label>
+      <Label text=" ©Todos los derechos reservados">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font>
+      </Label>
+   </children>
+   <padding>
+      <Insets top="10.0" />
+   </padding>
+</VBox>

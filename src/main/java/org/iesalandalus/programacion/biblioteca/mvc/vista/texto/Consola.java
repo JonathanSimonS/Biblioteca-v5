@@ -78,7 +78,7 @@ public class Consola {
 	public static Alumno leerAlumnoFicticio() {
 		String correo;
 		do {
-			System.out.println("Introduzca el correo del alumno ficticio: ");
+			System.out.println("Introduzca el correo del alumno: ");
 			correo = Entrada.cadena();
 		} while (correo == null || correo.equals("") || !correo.matches("\\w+(?:\\.\\w+)*@{1}\\w+\\.\\w{2,5}"));
 		return Alumno.getAlumnoFicticio(correo);

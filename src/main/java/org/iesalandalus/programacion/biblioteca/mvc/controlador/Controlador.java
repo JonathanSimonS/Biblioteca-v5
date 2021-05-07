@@ -37,7 +37,7 @@ public class Controlador implements IControlador {
 		
 		IFuenteDatos iFuenteDatos = new FactoriaFuenteDatosFicheros();
 		this.modelo = new Modelo(iFuenteDatos );
-		this.vista = new VistaTexto();
+		this.vista = vista;
 		this.vista.setControlador(this);
 	}
 

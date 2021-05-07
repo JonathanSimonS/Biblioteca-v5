@@ -103,7 +103,6 @@ public class Modelo implements IModelo {
 
 	@Override
 	public void borrar(Alumno alumno) throws OperationNotSupportedException {
-		alumnos.buscar(alumno);
 		List<Prestamo> alumnosParaBorrar = prestamos.get(alumno);
 		for (Prestamo prestamo : alumnosParaBorrar) {
 			prestamos.borrar(prestamo);
@@ -113,7 +112,6 @@ public class Modelo implements IModelo {
 
 	@Override
 	public void borrar(Libro libro) throws OperationNotSupportedException {
-		libros.buscar(libro);
 		List<Prestamo> librosParaBorrar = prestamos.get(libro);
 		for (Prestamo prestamo : librosParaBorrar) {
 			prestamos.borrar(prestamo);

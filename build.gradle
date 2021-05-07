@@ -9,6 +9,8 @@
 plugins {
     // Apply the java-library plugin to add support for Java Library
     id 'java-library'
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.9'
 }
 
 repositories {
@@ -16,6 +18,7 @@ repositories {
     // You can declare any Maven/Ivy/file repository here.
     jcenter()
 }
+
 
 dependencies {
     // This dependency is exported to consumers, that is to say found on their compile classpath.
@@ -29,6 +32,13 @@ dependencies {
     
 	// Uso de Mockito
     testCompile "org.mockito:mockito-inline:+"
+
+}
+
+
+javafx {
+    version = "15.0.1"
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
 }
 
 //Añadido por mí
@@ -38,7 +48,10 @@ mainClassName = 'org.iesalandalus.programacion.biblioteca.MainApp'
 
 jar {
 	manifest {
-		attributes 'Main-Class': 'org.iesalandalus.programacion.biblioteca.MainApp'
+		attributes 'Main-Class': 'org.iesalandalus.programacion.biblioteca.LanzaderaMain'
+	}
+	from {
+		configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
 	}
 }
 
