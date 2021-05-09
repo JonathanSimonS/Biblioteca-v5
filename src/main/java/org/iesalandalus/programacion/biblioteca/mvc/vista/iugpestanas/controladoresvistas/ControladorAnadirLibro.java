@@ -2,7 +2,10 @@ package org.iesalandalus.programacion.biblioteca.mvc.vista.iugpestanas.controlad
 
 import org.iesalandalus.programacion.biblioteca.mvc.controlador.IControlador;
 import org.iesalandalus.programacion.biblioteca.mvc.modelo.dominio.Alumno;
+import org.iesalandalus.programacion.biblioteca.mvc.modelo.dominio.AudioLibro;
 import org.iesalandalus.programacion.biblioteca.mvc.modelo.dominio.Libro;
+import org.iesalandalus.programacion.biblioteca.mvc.modelo.dominio.LibroEscrito;
+import org.iesalandalus.programacion.biblioteca.mvc.vista.iugpestanas.utilidades.Dialogos;
 
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -46,12 +49,18 @@ public class ControladorAnadirLibro {
     
     @FXML
     void anadirLibro(ActionEvent event) {
-
+    	Libro libro = null;
+    	try {
+    		libro = getLibro();
+			controladorMVC.insertar(libro);
+			obsLibros.setAll(controladorMVC.getLibros());
+			Stage propietario = ((Stage) btAnadirLibro.getScene().getWindow());
+			Dialogos.mostrarDialogoInformacion("Añadir Libro", "Libro añadido correctamente", propietario);
+		} catch (Exception e) {
+			Dialogos.mostrarDialogoError("Añadir Libro", e.getMessage());
+		}
     }
 
-    @FXML private void cancelar() {
-		((Stage) btCancelarLibro.getScene().getWindow()).close();
-	}
     public void setControladorMVC(IControlador controladorMVC) {
 		this.controladorMVC = controladorMVC;
 	}
@@ -62,32 +71,28 @@ public class ControladorAnadirLibro {
 	public void initialize() {
 		tfTituloLibro.textProperty().addListener((ob,ov,nv) -> compruebaCampoTexto(ER_OBLIGATORIO, tfTituloLibro));
 		tfAutorLibro.textProperty().addListener((ob,ov,nv) -> compruebaCampoTexto(ER_OBLIGATORIO, tfAutorLibro));
-		
-		
 		groupTipoLibro.selectedToggleProperty().addListener((observable, oldValue, newValue) -> getTipoLibro());
-		
 		tfPaginasLibro.textProperty().addListener((ob,ov,nv) -> compruebaCampoTexto(ER_CIFRA, tfPaginasLibro));
 		tfDuracionLibro.textProperty().addListener((ob,ov,nv) -> compruebaCampoTexto(ER_CIFRA, tfDuracionLibro));
-
 	}
 	
+	// método para mostrar opciones dependiendo del RadioButton seleccionado
 	private void getTipoLibro() {
 		RadioButton seleccion = (RadioButton)groupTipoLibro.getSelectedToggle();
-		
+	
 		if (seleccion == rbAudioLibro) {
 			tfPaginasLibro.setVisible(false);
 			lbPaginasLibro.setVisible(false);
 			tfDuracionLibro.setVisible(true);
 			lbDuracionLibro.setVisible(true);
+			
 		}
 		else if (seleccion == rbEscrito){
 			tfDuracionLibro.setVisible(false);
 			lbDuracionLibro.setVisible(false);
 			tfPaginasLibro.setVisible(true);
 			lbPaginasLibro.setVisible(true);
-		}
-		
-		
+		}		
 	}
 	
 	public void inicializa() {
@@ -96,10 +101,28 @@ public class ControladorAnadirLibro {
     	tfAutorLibro.setText("");
     	compruebaCampoTexto(ER_OBLIGATORIO, tfAutorLibro);
     	tfPaginasLibro.setText("");
+    	rbAudioLibro.setSelected(true);
+    	rbEscrito.setSelected(false);
     	compruebaCampoTexto(ER_CIFRA, tfPaginasLibro);
     	tfDuracionLibro.setText("");
     	compruebaCampoTexto(ER_CIFRA, tfDuracionLibro);
     }
+	
+	// devuelve el libro según su tipo
+	private Libro getLibro() {
+		Libro libro = null;
+		if (libro instanceof AudioLibro) {
+			String titulo = tfTituloLibro.getText();
+			String autor = tfAutorLibro.getText();
+			int duracion = Integer.parseInt(tfDuracionLibro.getText());
+			return new AudioLibro(titulo, autor, duracion);
+		} else {
+			String titulo = tfTituloLibro.getText();
+			String autor = tfAutorLibro.getText();
+			int paginas = Integer.parseInt(tfPaginasLibro.getText());
+			return new LibroEscrito(titulo, autor, paginas);
+		}
+	}
 	
 	private void compruebaCampoTexto(String er, TextField campoTexto) {	
 		String texto = campoTexto.getText();
@@ -109,5 +132,9 @@ public class ControladorAnadirLibro {
 		else {
 			campoTexto.setStyle("-fx-border-color: red; -fx-border-radius: 5;");
 		}
+	}
+	
+    @FXML private void cancelar() {
+		((Stage) btCancelarLibro.getScene().getWindow()).close();
 	}
 }

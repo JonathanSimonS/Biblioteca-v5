@@ -10,6 +10,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -37,7 +38,7 @@ public class VistaIUGPestanas extends Application implements IVista{
 	public void start(Stage escenarioPrincipal) {
 		try {
 			FXMLLoader cargadorEscenarioPrincipal = new FXMLLoader(LocalizadorRecursos.class.getResource("vistas/EscenarioPrincipal.fxml"));
-			Parent raiz = cargadorEscenarioPrincipal.load();	
+			VBox raiz = cargadorEscenarioPrincipal.load();	
 			ControladorEscenarioPrincipal cEscenarioPrincipal = cargadorEscenarioPrincipal.getController();
 			// establecemos el controlador
 			cEscenarioPrincipal.setControladorMVC(controladorMVC);
@@ -58,10 +59,14 @@ public class VistaIUGPestanas extends Application implements IVista{
 	}
 	
 	private void confirmarSalida(Stage escenarioPrincipal, WindowEvent e) {
-		if (Dialogos.mostrarDialogoConfirmacion("Salir", "¿Estás seguro de que quieres salir de la aplicación?", escenarioPrincipal)) 		
+		if (Dialogos.mostrarDialogoConfirmacion("Salir", "¿Estás seguro de que quieres salir de la aplicación?", escenarioPrincipal)) {
+			controladorMVC.terminar();
 			escenarioPrincipal.close();
-		else
-			e.consume();	
+		}
+			
+		else {
+			e.consume();
+		}
 	}
 
 }

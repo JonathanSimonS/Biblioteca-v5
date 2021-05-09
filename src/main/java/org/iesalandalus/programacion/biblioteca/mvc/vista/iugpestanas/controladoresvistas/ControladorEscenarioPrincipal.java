@@ -50,16 +50,12 @@ public class ControladorEscenarioPrincipal {
 
 	// instanciar clase IControlador, para en la vista pasarle el controlador con el
 	// set
-	private IControlador controladorMVC = null;
+	private IControlador controladorMVC;
 
 	private static final DateTimeFormatter FORMATO_FECHA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-	
-	public void setControladorMVC(IControlador controladorMVC) {
-		this.controladorMVC = controladorMVC;
-	}
-	
-	@FXML   private VBox vbBiblioteca;
-	@FXML   private MenuBar mbBiblioteca;
+
+	@FXML	private VBox vbBiblioteca;
+	@FXML	private MenuBar mbBiblioteca;
 	@FXML	private Menu mBiblioteca;
 	@FXML	private MenuItem miGuardar;
 	@FXML	private MenuItem miSalir;
@@ -70,7 +66,7 @@ public class ControladorEscenarioPrincipal {
 	@FXML	private ImageView ivAlumnos;
 	@FXML	private VBox vbAlumnos;
 	@FXML	private Label lbAlumnos;
-    @FXML	private ContextMenu cmAlumnos;
+	@FXML	private ContextMenu cmAlumnos;
 	@FXML	private MenuItem miAnadirAlumno;
 	@FXML	private MenuItem miBorrarAlumno;
 	@FXML	private Tab tLibros;
@@ -93,64 +89,58 @@ public class ControladorEscenarioPrincipal {
 	@FXML	private MenuItem miListarPrestamoFecha;
 	@FXML	private MenuItem miBorrarPrestamo;
 	@FXML	private Button btMostrarEstadistica;
-
+	
 	@FXML	private TableView<Alumno> tvAlumnos;
 	@FXML	private TableColumn<Alumno, String> tcTANombre;
 	@FXML	private TableColumn<Alumno, String> tcTACorreo;
 	@FXML	private TableColumn<Alumno, Curso> tcTACurso;
-
+	
 	@FXML	private TableView<Libro> tvLibros;
 	@FXML	private TableColumn<Libro, String> tcTLTitulo;
-	@FXML	private TableColumn<Libro, String> tcTLAutor;
+	@FXML   private TableColumn<Libro, String> tcTLAutor;
 	@FXML	private TableColumn<Libro, Integer> tcTLDuracion;
 	@FXML	private TableColumn<Libro, Integer> tcTLPaginas;
-	
-    
-    @FXML	private TableView<Prestamo> tvPrestamos;
+
+	@FXML	private TableView<Prestamo> tvPrestamos;
 	@FXML	private TableColumn<Prestamo, String> tcTPAlumno;
 	@FXML	private TableColumn<Prestamo, String> tcTPLibro;
 	@FXML	private TableColumn<Prestamo, String> tcTPFechaPrestamo;
 	@FXML	private TableColumn<Prestamo, String> tcTPFechaDevolucion;
 
-
-
-    private Stage anadirAlumno;
-    private ControladorAnadirAlumno cAnadirAlumno;
+	private Stage anadirAlumno;
+	private ControladorAnadirAlumno cAnadirAlumno;
 	private Stage anadirLibro;
 	private ControladorAnadirLibro cAnadirLibro;
-	// Falta la gestión de préstamos
-
+	private Stage prestarLibro;
+	private ControladorPrestarLibro cPrestarLibro;
 	
+	
+	public void setControladorMVC(IControlador controladorMVC) {
+		this.controladorMVC = controladorMVC;
+	}
+
 	public void initialize() {
 		tcTANombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
 		tcTACorreo.setCellValueFactory(new PropertyValueFactory<>("correo"));
 		tcTACurso.setCellValueFactory(new PropertyValueFactory<>("curso"));
 		tvAlumnos.setItems(obsAlumnos);
-		
+
 		tcTLTitulo.setCellValueFactory(new PropertyValueFactory<>("titulo"));
 		tcTLAutor.setCellValueFactory(new PropertyValueFactory<>("autor"));
 		tcTLDuracion.setCellValueFactory(new PropertyValueFactory<>("duracion"));
 		tcTLPaginas.setCellValueFactory(new PropertyValueFactory<>("numPaginas"));
 		tvLibros.setItems(obsLibros);
 
-		tcTPAlumno.setCellValueFactory(prestamo -> new SimpleStringProperty(prestamo.getValue().getAlumno().getNombre()));
+		tcTPAlumno
+				.setCellValueFactory(prestamo -> new SimpleStringProperty(prestamo.getValue().getAlumno().getNombre()));
 		tcTPLibro.setCellValueFactory(prestamo -> new SimpleStringProperty(prestamo.getValue().getLibro().getTitulo()));
-		tcTPFechaPrestamo.setCellValueFactory(prestamo -> new SimpleStringProperty(FORMATO_FECHA.format((prestamo.getValue().getFechaPrestamo()))));
+		tcTPFechaPrestamo.setCellValueFactory(
+				prestamo -> new SimpleStringProperty(FORMATO_FECHA.format((prestamo.getValue().getFechaPrestamo()))));
 //		tcTPFechaDevolucion.setCellValueFactory(prestamo -> new SimpleStringProperty(FORMATO_FECHA.format((prestamo.getValue().getFechaDevolucion()))));
 		tvPrestamos.setItems(obsPrestamos);
-		
+
 	}
-// implemento método para diferenciar libroEscrito de audioLibro
-//	private Integer getTipoLibro(Libro libro) {
-//		Integer num=0;
-//		if (libro instanceof LibroEscrito) {
-//			num=((LibroEscrito) libro).getNumPaginas();
-//		} else {
-//			num=((AudioLibro) libro).getDuracion();
-//		}
-//		return num;
-//	}
-	
+
 // implemento método para añadir o no la fecha de devolución, ya que no puede ser nula
 //	private LocalDate getFechaString(Prestamo prestamo) {
 //		String fecha="";
@@ -161,25 +151,20 @@ public class ControladorEscenarioPrincipal {
 //		
 //	}
 
-
 	public void actualizaAlumnos() {
-		// usar método clear()
-		tvAlumnos.getSelectionModel().clearSelection();
+    	tvAlumnos.getSelectionModel().clearSelection();
 		obsAlumnos.setAll(controladorMVC.getAlumnos());
 	}
 
 	public void actualizaLibros() {
-		// usar método clear()
 		tvLibros.getSelectionModel().clearSelection();
 		obsLibros.setAll(controladorMVC.getLibros());
 	}
 
 	public void actualizaPrestamos() {
-		// usar método clear()
 		tvPrestamos.getSelectionModel().clearSelection();
 		obsPrestamos.setAll(controladorMVC.getPrestamos());
 	}
-
 
 	@FXML
 	void abrirAcercaDe(ActionEvent event) throws IOException {
@@ -192,22 +177,24 @@ public class ControladorEscenarioPrincipal {
 		crearAnadirAlumno();
 		anadirAlumno.showAndWait();
 	}
+
 	private void crearAnadirAlumno() throws IOException {
 		if (anadirAlumno == null) {
 			anadirAlumno = new Stage();
-			FXMLLoader cargadorAnadirAlumno = new FXMLLoader(LocalizadorRecursos.class.getResource("vistas/AnadirAlumno.fxml"));
+			FXMLLoader cargadorAnadirAlumno = new FXMLLoader(
+					LocalizadorRecursos.class.getResource("vistas/AnadirAlumno.fxml"));
 			VBox raizAnadirAlumno = cargadorAnadirAlumno.load();
 			cAnadirAlumno = cargadorAnadirAlumno.getController();
 			cAnadirAlumno.setControladorMVC(controladorMVC);
 			cAnadirAlumno.setAlumnos(obsAlumnos);
 			cAnadirAlumno.inicializa();
-			
+
 			Scene escenaAnadirAlumno = new Scene(raizAnadirAlumno);
-			anadirAlumno.initModality(Modality.APPLICATION_MODAL); 
+			anadirAlumno.initModality(Modality.APPLICATION_MODAL);
 			anadirAlumno.setTitle("Añadir Alumno");
 			anadirAlumno.setScene(escenaAnadirAlumno);
 		} else {
-			//cAnadirAlumno.inicializa();
+			cAnadirAlumno.inicializa();
 		}
 	}
 
@@ -216,53 +203,82 @@ public class ControladorEscenarioPrincipal {
 		crearAnadirLibro();
 		anadirLibro.showAndWait();
 	}
+
 	private void crearAnadirLibro() throws IOException {
-		if (anadirLibro==null) {
-			anadirLibro= new Stage();
-			FXMLLoader cargadorAnadirLibro = new FXMLLoader(LocalizadorRecursos.class.getResource("vistas/AnadirLibro.fxml"));
+		if (anadirLibro == null) {
+			anadirLibro = new Stage();
+			FXMLLoader cargadorAnadirLibro = new FXMLLoader(
+					LocalizadorRecursos.class.getResource("vistas/AnadirLibro.fxml"));
 			VBox raizAnadirLibro = cargadorAnadirLibro.load();
 			cAnadirLibro = cargadorAnadirLibro.getController();
 			cAnadirLibro.setControladorMVC(controladorMVC);
 			cAnadirLibro.setLibros(obsLibros);
 			cAnadirLibro.inicializa();
-			
+
 			Scene escenaAnadirLibro = new Scene(raizAnadirLibro);
-			anadirLibro.initModality(Modality.APPLICATION_MODAL); 
+			anadirLibro.initModality(Modality.APPLICATION_MODAL);
 			anadirLibro.setTitle("Añadir Libro");
 			anadirLibro.setScene(escenaAnadirLibro);
+			
+		} else {
+			cAnadirLibro.inicializa();
 		}
 	}
-	
-	
+
 	@FXML
-	void borrar(ActionEvent event) {
+	void borrarAlumno(ActionEvent event) {
 		Alumno alumno = null;
 		try {
 			alumno = tvAlumnos.getSelectionModel().getSelectedItem();
-			if (alumno != null && Dialogos.mostrarDialogoConfirmacion("Borrar alumno", "¿Estás seguro de que quieres borrar al alumno?", null)) {
+			if (alumno != null && Dialogos.mostrarDialogoConfirmacion("Borrar alumno",
+					"¿Estás seguro de que quieres borrar al alumno?", null)) {
 				controladorMVC.borrar(alumno); // borro al alumno
 				obsAlumnos.remove(alumno);
-				
+
 				// OJO
-				// obsPrestamos.clear(); 	//elimino los préstamos que pueda tener
-				
+				//obsPrestamos.remove(alumno);
+
 				actualizaAlumnos();
+				actualizaPrestamos();
 				Dialogos.mostrarDialogoInformacion("Borrar alumno", "Alumno borrado satisfactoriamente");
 			}
-			
+
 		} catch (Exception e) {
 			Dialogos.mostrarDialogoError("Borrar alumno", e.getMessage());
 		}
-		
+
+	}
+
+	@FXML
+	void borrarLibro(ActionEvent event) {
+		Libro libro = null;
+		try {
+			libro = tvLibros.getSelectionModel().getSelectedItem();
+			if (libro != null && Dialogos.mostrarDialogoConfirmacion("Borrar libro",
+					"¿Estás seguro de que quieres borrar el libro?", null)) {
+				controladorMVC.borrar(libro); // borro el libro
+				obsLibros.remove(libro);
+
+				// OJO
+			
+				obsPrestamos.remove(libro); //elimino los préstamos que pueda tener
+
+				actualizaLibros();
+				Dialogos.mostrarDialogoInformacion("Borrar libro", "Libro borrado satisfactoriamente");
+			}
+
+		} catch (Exception e) {
+			Dialogos.mostrarDialogoError("Borrar libro", e.getMessage());
+		}
+	}
+
+	@FXML
+	void borrarPrestamo(ActionEvent event) {
+
 	}
 
 	@FXML
 	void devolverLibro(ActionEvent event) {
-
-	}
-
-	@FXML
-	void listarPrestamo(ActionEvent event) {
 
 	}
 
@@ -272,8 +288,32 @@ public class ControladorEscenarioPrincipal {
 	}
 
 	@FXML
-	void prestarLibro(ActionEvent event) {
+	void prestarLibro(ActionEvent event) throws IOException {
+		crearPrestarLibro();
+		prestarLibro.showAndWait();
 
+	}
+
+	private void crearPrestarLibro() throws IOException {
+		if (prestarLibro == null) {
+			prestarLibro = new Stage();
+			FXMLLoader cargadorPrestarLibro = new FXMLLoader(
+					LocalizadorRecursos.class.getResource("vistas/PrestarLibro.fxml"));
+			VBox raizPrestarLibro = cargadorPrestarLibro.load();
+			cPrestarLibro = cargadorPrestarLibro.getController();
+			cPrestarLibro.setControladorMVC(controladorMVC);
+			cPrestarLibro.setPadre(this);
+			cPrestarLibro.setLibros(obsLibros);
+			cPrestarLibro.setAlumnos(obsAlumnos);
+			cPrestarLibro.inicializa();
+
+			Scene escenaPrestarLibro = new Scene(raizPrestarLibro);
+			prestarLibro.initModality(Modality.APPLICATION_MODAL);
+			prestarLibro.setTitle("Prestar Libro");
+			prestarLibro.setScene(escenaPrestarLibro);
+		} else {
+			cPrestarLibro.inicializa();
+		}
 	}
 
 	@FXML

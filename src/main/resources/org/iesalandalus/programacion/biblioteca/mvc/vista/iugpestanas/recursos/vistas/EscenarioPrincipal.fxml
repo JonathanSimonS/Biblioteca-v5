@@ -16,7 +16,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="vbBiblioteca" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="698.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.iesalandalus.programacion.biblioteca.mvc.vista.iugpestanas.controladoresvistas.ControladorEscenarioPrincipal">
+<VBox fx:id="vbBiblioteca" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.iesalandalus.programacion.biblioteca.mvc.vista.iugpestanas.controladoresvistas.ControladorEscenarioPrincipal">
    <children>
       <MenuBar fx:id="mbBiblioteca">
          <menus>
@@ -33,13 +33,13 @@
             </Menu>
          </menus>
       </MenuBar>
-      <TabPane fx:id="tpBiblioteca" nodeOrientation="LEFT_TO_RIGHT" prefHeight="673.0" prefWidth="960.0" side="BOTTOM" tabClosingPolicy="UNAVAILABLE" tabMinWidth="300.0">
+      <TabPane fx:id="tpBiblioteca" nodeOrientation="LEFT_TO_RIGHT" prefHeight="573.0" side="BOTTOM" tabClosingPolicy="UNAVAILABLE" tabMinWidth="230.0">
          <tabs>
             <Tab fx:id="tAlumnos" text="ALUMNOS">
                <content>
                   <VBox fx:id="vbAlumnos" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <ImageView fx:id="ivAlumnos" fitHeight="117.0" fitWidth="107.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="ivAlumnos" fitHeight="90.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../imagenes/alumnos.png" />
                            </image>
@@ -47,11 +47,11 @@
                               <Insets bottom="10.0" top="10.0" />
                            </VBox.margin>
                         </ImageView>
-                        <TableView fx:id="tvAlumnos" prefHeight="492.0" prefWidth="930.0">
+                        <TableView fx:id="tvAlumnos" maxWidth="700.0">
                           <columns>
-                            <TableColumn fx:id="tcTANombre" prefWidth="404.0" text="Nombre" />
-                            <TableColumn fx:id="tcTACorreo" prefWidth="390.0" text="Correo" />
-                              <TableColumn fx:id="tcTACurso" prefWidth="135.0" text="Curso" />
+                            <TableColumn fx:id="tcTANombre" prefWidth="285.0" text="Nombre" />
+                            <TableColumn fx:id="tcTACorreo" prefWidth="285.0" text="Correo" />
+                              <TableColumn fx:id="tcTACurso" prefWidth="129.0" text="Curso" />
                           </columns>
                            <VBox.margin>
                               <Insets bottom="15.0" left="15.0" right="15.0" />
@@ -63,7 +63,7 @@
                               <ContextMenu fx:id="cmAlumnos">
                                  <items>
                                     <MenuItem fx:id="miAnadirAlumno" mnemonicParsing="false" onAction="#anadirAlumno" text="Añadir alumno" />
-                                    <MenuItem fx:id="miBorrarAlumno" mnemonicParsing="false" onAction="#borrar" text="Borrar alumno" />
+                                    <MenuItem fx:id="miBorrarAlumno" mnemonicParsing="false" onAction="#borrarAlumno" text="Borrar alumno" />
                                  </items>
                               </ContextMenu>
                            </contextMenu>
@@ -76,7 +76,7 @@
                <content>
                   <VBox fx:id="vbLibros" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <ImageView fx:id="ivLibros" fitHeight="117.0" fitWidth="107.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="ivLibros" fitHeight="90.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../imagenes/libros.png" />
                            </image>
@@ -84,12 +84,12 @@
                               <Insets bottom="10.0" top="10.0" />
                            </VBox.margin>
                         </ImageView>
-                        <TableView fx:id="tvLibros" prefHeight="492.0" prefWidth="930.0">
+                        <TableView fx:id="tvLibros" maxWidth="700.0">
                            <columns>
-                              <TableColumn fx:id="tcTLTitulo" prefWidth="403.0" text="Titulo" />
-                              <TableColumn fx:id="tcTLAutor" prefWidth="319.0" text="Autor" />
-                              <TableColumn fx:id="tcTLDuracion" prefWidth="120.0" text="Duracion(min)" />
-                              <TableColumn fx:id="tcTLPaginas" prefWidth="96.0" text="Paginas" />
+                              <TableColumn fx:id="tcTLTitulo" prefWidth="239.0" text="Titulo" />
+                              <TableColumn fx:id="tcTLAutor" prefWidth="253.0" text="Autor" />
+                              <TableColumn fx:id="tcTLDuracion" prefWidth="123.0" text="Duracion(min)" />
+                              <TableColumn fx:id="tcTLPaginas" prefWidth="84.0" text="Paginas" />
                            </columns>
                            <VBox.margin>
                               <Insets bottom="15.0" left="15.0" right="15.0" />
@@ -102,7 +102,7 @@
                                 <items>
                                   <MenuItem fx:id="miAnadirLibro" mnemonicParsing="false" onAction="#anadirLibro" text="Añadir libro" />
                                   <MenuItem fx:id="miPrestarLibro" mnemonicParsing="false" onAction="#prestarLibro" text="Prestar libro" />
-                                  <MenuItem fx:id="miBorrarLibro" mnemonicParsing="false" onAction="#borrar" text="Borrar libro" />
+                                  <MenuItem fx:id="miBorrarLibro" mnemonicParsing="false" onAction="#borrarLibro" text="Borrar libro" />
                                 </items>
                               </ContextMenu>
                            </contextMenu>
@@ -115,7 +115,7 @@
                <content>
                   <VBox fx:id="vbPrestamos" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <ImageView fx:id="imPrestamos" fitHeight="117.0" fitWidth="107.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="imPrestamos" fitHeight="90.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                            <VBox.margin>
                               <Insets bottom="10.0" top="10.0" />
                            </VBox.margin>
@@ -123,12 +123,12 @@
                               <Image url="@../imagenes/prestamos.png" />
                            </image>
                         </ImageView>
-                        <TableView fx:id="tvPrestamos" prefHeight="426.0" prefWidth="930.0">
+                        <TableView fx:id="tvPrestamos" maxWidth="700.0">
                            <columns>
-                              <TableColumn fx:id="tcTPAlumno" prefWidth="322.0" text="Alumno" />
-                              <TableColumn fx:id="tcTPLibro" prefWidth="319.0" text="Libro" />
-                              <TableColumn fx:id="tcTPFechaPrestamo" prefWidth="141.0" text="Fecha Prestamo" />
-                              <TableColumn fx:id="tcTPFechaDevolucion" prefWidth="147.0" text="Fecha Devolucion" />
+                              <TableColumn fx:id="tcTPAlumno" prefWidth="214.0" text="Alumno" />
+                              <TableColumn fx:id="tcTPLibro" prefWidth="222.0" text="Libro" />
+                              <TableColumn fx:id="tcTPFechaPrestamo" prefWidth="125.0" text="Fecha Prestamo" />
+                              <TableColumn fx:id="tcTPFechaDevolucion" prefWidth="138.0" text="Fecha Devolucion" />
                            </columns>
                            <VBox.margin>
                               <Insets bottom="15.0" left="15.0" right="15.0" />
@@ -145,14 +145,14 @@
                                     <MenuItem fx:id="miListarPrestamoAlumno" mnemonicParsing="false" onAction="#listarPrestamo" text="Listar por Alumno" />
                                     <MenuItem fx:id="miListarPrestamoLibro" mnemonicParsing="false" onAction="#listarPrestamo" text="Listar por Libro" />
                                     <MenuItem fx:id="miListarPrestamoFecha" mnemonicParsing="false" onAction="#listarPrestamo" text="Listar por Fecha" />
-                                    <MenuItem fx:id="miBorrarPrestamo" mnemonicParsing="false" onAction="#borrar" text="Borrar préstamos" />
+                                    <MenuItem fx:id="miBorrarPrestamo" mnemonicParsing="false" onAction="#borrarPrestamo" text="Borrar préstamos" />
                                 </items>
                               </ContextMenu>
                            </contextMenu>
                         </TableView>
                         <Button fx:id="btMostrarEstadistica" mnemonicParsing="false" onAction="#mostrarEstadistica" text="Mostrar estadistica mensual por curso">
                            <VBox.margin>
-                              <Insets top="25.0" />
+                              <Insets bottom="20.0" top="5.0" />
                            </VBox.margin></Button>
                      </children>
                   </VBox>

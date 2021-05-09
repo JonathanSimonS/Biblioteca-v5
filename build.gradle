@@ -48,7 +48,7 @@ mainClassName = 'org.iesalandalus.programacion.biblioteca.MainApp'
 
 jar {
 	manifest {
-		attributes 'Main-Class': 'org.iesalandalus.programacion.biblioteca.LanzaderaMain'
+		attributes 'Main-Class': 'org.iesalandalus.programacion.biblioteca.MainApp'
 	}
 	from {
 		configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }

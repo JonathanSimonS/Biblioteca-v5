@@ -53,11 +53,14 @@
             </TextField>
             <HBox fx:id="hbCursoAnadirAlumno" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="12.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
-                  <RadioButton fx:id="rbCurso1AnadirAlumno" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="18.0" prefWidth="0.0" text="1º" toggleGroup="$groupCurso" />
+                  <RadioButton fx:id="rbCurso1AnadirAlumno" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="18.0" prefWidth="0.0" text="1º">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="groupCurso" />
+                     </toggleGroup>
+                  </RadioButton>
                   <RadioButton fx:id="rbCurso2AnadirAlumno" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="18.0" prefWidth="0.0" text="2º" toggleGroup="$groupCurso" />
                   <RadioButton fx:id="rbCurso3AnadirAlumno" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="18.0" prefWidth="0.0" text="3º" toggleGroup="$groupCurso" />
-                  <RadioButton fx:id="rbCurso4AnadirAlumno" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="18.0" prefWidth="0.0" text="4º" toggleGroup="$groupCurso" />
-               </children>
+                  <RadioButton fx:id="rbCurso4AnadirAlumno" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="18.0" prefWidth="0.0" text="4º" toggleGroup="$groupCurso" /> </children>
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
