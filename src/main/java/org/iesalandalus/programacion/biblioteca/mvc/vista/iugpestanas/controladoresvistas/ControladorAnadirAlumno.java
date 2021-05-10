@@ -3,6 +3,7 @@ package org.iesalandalus.programacion.biblioteca.mvc.vista.iugpestanas.controlad
 import org.iesalandalus.programacion.biblioteca.mvc.controlador.IControlador;
 import org.iesalandalus.programacion.biblioteca.mvc.modelo.dominio.Alumno;
 import org.iesalandalus.programacion.biblioteca.mvc.modelo.dominio.Curso;
+import org.iesalandalus.programacion.biblioteca.mvc.vista.iugpestanas.recursos.LocalizadorRecursos;
 import org.iesalandalus.programacion.biblioteca.mvc.vista.iugpestanas.utilidades.Dialogos;
 
 import javafx.collections.ObservableList;
@@ -22,6 +23,8 @@ public class ControladorAnadirAlumno {
 
 	private static final String ER_OBLIGATORIO = "[a-zA-ZáéíóúÁÉÍÓÚ ,.'-]+\s{1}[a-zA-ZáéíóúÁÉÍÓÚ ,.'-]+";
 	private static final String ER_CORREO = "\\w+(?:\\.\\w+)*@\\w+\\.\\w{2,5}";
+	private static final String CSS = "estilos/estilos.css";
+
 	private IControlador controladorMVC;
 	private ObservableList<Alumno> obsAlumnos;
 
@@ -64,6 +67,7 @@ public class ControladorAnadirAlumno {
 			alumno = getAlumno();
 			controladorMVC.insertar(alumno);
 			obsAlumnos.setAll(controladorMVC.getAlumnos());
+			
 			Stage propietario = ((Stage) bAnadirAlumno.getScene().getWindow());
 			Dialogos.mostrarDialogoInformacion("Añadir Alumno", "Alumno añadido correctamente", propietario);
 		} catch (Exception e) {

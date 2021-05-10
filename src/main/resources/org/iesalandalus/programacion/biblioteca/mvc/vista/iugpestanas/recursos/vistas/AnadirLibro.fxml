@@ -90,12 +90,13 @@
       </GridPane>
       <HBox alignment="CENTER" prefHeight="94.0" prefWidth="292.0" spacing="30.0">
          <children>
-            <Button fx:id="btAnadirLibro" mnemonicParsing="false" onAction="#anadirLibro" prefWidth="89.0" text="Añadir">
+         	<Button fx:id="btCancelarLibro" mnemonicParsing="false" onAction="#cancelar" prefWidth="89.0" text="Cancelar">
+            
                <font>
                   <Font size="13.0" />
                </font>
             </Button>
-            <Button fx:id="btCancelarLibro" mnemonicParsing="false" onAction="#cancelar" prefWidth="89.0" text="Cancelar">
+            <Button fx:id="btAnadirLibro" mnemonicParsing="false" onAction="#anadirLibro" prefWidth="89.0" text="Añadir">
                <font>
                   <Font size="13.0" />
                </font>

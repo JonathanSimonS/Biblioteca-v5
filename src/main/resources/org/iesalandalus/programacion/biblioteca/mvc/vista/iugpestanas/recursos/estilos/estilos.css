@@ -1,38 +1,78 @@
 * {
-	-fx-font: 14 arial;
-	-fx-base: #b0c4de;
+	-fx-font-size: 11pt;
+    -fx-font-family: "Arial";	
+    -fx-base: #bfbfbf;
+}
+.vbox {
+	-fx-background-color: #bfbfbf;
+		-fx-border-radius: 10;	
+}
+.tab {
+	-fx-padding: 0 0 0 12;
 }
 
-.tab {
-	-fx-padding: 20 20 20 20;
+.table-view .column-header-background {
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header, .table-view .filler {
+    -fx-size: 35;
 }
 
 .tab:selected .focus-indicator{
 	-fx-border-color: transparent;
+	-fx-font-style:italic;
 }
 
-.vbox {
-	-fx-background-color: #b0c4de;
+
+.menu:hover, .menu:showing, .menu-item:hover {
+	-fx-background-color: #595959;
 }
 
 .menu-item, .context-menu {
-	-fx-background-color: #b0c4de;
+	-fx-background-color: #bfbfbf;
 }
 
-.menu-item:hover {
-	-fx-background-color: #4682b4;
+
+.table-view:row-selection .table-row-cell:filled:selected{ 
+    -fx-background-color: #595959;    
+   
 }
+.table-view:row-selection .table-row-cell:hover { 
+    -fx-background-color: #bfbfbf;
+}
+
+.list-cell:filled:selected:focused, .list-cell:filled:selected {
+    -fx-background-color: #595959;
+    -fx-text-fill: white;
+}
+
+.list-cell:even {
+    -fx-background-color: white;
+}
+
+.list-cell:filled:hover {
+    -fx-background-color: #bfbfbf;
+    -fx-text-fill: white;
+}
+
+
+
 
 .button {
 	-fx-background-radius: 10;
 }
 
-#btAnadir, #btAceptar, #btListar, #btAnadirHoras, #btAnadirPrecioMaterial {
-	-fx-font: 22 "arial";
-	-fx-base: #b6e7c9;
+#btAnadir,#bAnadirAlumno,#btAnadirPrestarLibro,#btAnadirLibro, #btAceptar {
+	-fx-font: 15 "arial";
+	-fx-base: #e0e0e0;
+	-fx-border-color: #595959 ;
+	-fx-border-radius: 10;
 }
 
-#btCancelar, #btBorrar, #btCerrar {
-	-fx-font: 20 "arial";
-	-fx-base: #dc143c;
+#btCancelar,#bCancelar,#btCancelarLibro, #btBorrar, #btCerrar {
+	-fx-font: 15 "arial";
+	-fx-base: #363636;
 }
+
+

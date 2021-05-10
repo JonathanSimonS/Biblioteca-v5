@@ -20,7 +20,7 @@
    <children>
       <MenuBar fx:id="mbBiblioteca">
          <menus>
-            <Menu fx:id="mBiblioteca" mnemonicParsing="false" text="Menu">
+            <Menu fx:id="mBiblioteca" mnemonicParsing="false" text="Menú">
                <items>
                   <MenuItem fx:id="miGuardar" mnemonicParsing="false" text="Guardar" />  <!-- implementar método para guardar --> 
                   <MenuItem fx:id="miSalir" mnemonicParsing="false" onAction="#salir" text="Salir" />
@@ -47,11 +47,11 @@
                               <Insets bottom="10.0" top="10.0" />
                            </VBox.margin>
                         </ImageView>
-                        <TableView fx:id="tvAlumnos" maxWidth="700.0">
+                        <TableView fx:id="tvAlumnos" maxWidth="700.0" maxHeight="389.0" >
                           <columns>
                             <TableColumn fx:id="tcTANombre" prefWidth="285.0" text="Nombre" />
                             <TableColumn fx:id="tcTACorreo" prefWidth="285.0" text="Correo" />
-                              <TableColumn fx:id="tcTACurso" prefWidth="129.0" text="Curso" />
+                            <TableColumn fx:id="tcTACurso" prefWidth="128.0" text="Curso" />
                           </columns>
                            <VBox.margin>
                               <Insets bottom="15.0" left="15.0" right="15.0" />
@@ -84,12 +84,13 @@
                               <Insets bottom="10.0" top="10.0" />
                            </VBox.margin>
                         </ImageView>
-                        <TableView fx:id="tvLibros" maxWidth="700.0">
+                        <TableView fx:id="tvLibros" maxWidth="700.0" maxHeight="389.0">
                            <columns>
-                              <TableColumn fx:id="tcTLTitulo" prefWidth="239.0" text="Titulo" />
-                              <TableColumn fx:id="tcTLAutor" prefWidth="253.0" text="Autor" />
-                              <TableColumn fx:id="tcTLDuracion" prefWidth="123.0" text="Duracion(min)" />
-                              <TableColumn fx:id="tcTLPaginas" prefWidth="84.0" text="Paginas" />
+                              <TableColumn fx:id="tcTLTipo" prefWidth="100.0" text="Tipo" />
+                              <TableColumn fx:id="tcTLTitulo" prefWidth="220.0" text="Título" />
+                              <TableColumn fx:id="tcTLAutor" prefWidth="220.0" text="Autor" />
+                              <TableColumn fx:id="tcTLPaginas" prefWidth="101.0" text="Pag / Dur" />
+                              <TableColumn fx:id="tcTLPuntoss" prefWidth="57.0" text="Puntos" />
                            </columns>
                            <VBox.margin>
                               <Insets bottom="15.0" left="15.0" right="15.0" />
@@ -125,32 +126,28 @@
                         </ImageView>
                         <TableView fx:id="tvPrestamos" maxWidth="700.0">
                            <columns>
-                              <TableColumn fx:id="tcTPAlumno" prefWidth="214.0" text="Alumno" />
-                              <TableColumn fx:id="tcTPLibro" prefWidth="222.0" text="Libro" />
-                              <TableColumn fx:id="tcTPFechaPrestamo" prefWidth="125.0" text="Fecha Prestamo" />
-                              <TableColumn fx:id="tcTPFechaDevolucion" prefWidth="138.0" text="Fecha Devolucion" />
+                              <TableColumn fx:id="tcTPAlumno" prefWidth="210.0" text="Alumno" />
+                              <TableColumn fx:id="tcTPLibro" prefWidth="210.0" text="Libro" />
+                              <TableColumn fx:id="tcTPFechaPrestamo" prefWidth="134.0" text="Fecha Préstamo" />
+                              <TableColumn fx:id="tcTPFechaDevolucion" prefWidth="144.0" text="Fecha Devolución" />
                            </columns>
                            <VBox.margin>
                               <Insets bottom="15.0" left="15.0" right="15.0" />
                            </VBox.margin>
                            <tooltip>
-                              <Tooltip text="Tabla de prestamos" />
+                              <Tooltip text="Tabla de préstamos" />
                            </tooltip>
                            <contextMenu>
                               <ContextMenu fx:id="cmPrestamos">
                                 <items>
                                     <MenuItem fx:id="miPrestarLibro" mnemonicParsing="false" onAction="#prestarLibro" text="Prestar libro" />
                                     <MenuItem fx:id="miDevolverLibro" mnemonicParsing="false" onAction="#devolverLibro" text="Devolver libro" />
-                                    <MenuItem fx:id="miListarPrestamo" mnemonicParsing="false" onAction="#listarPrestamo" text="Listar préstamos" />
-                                    <MenuItem fx:id="miListarPrestamoAlumno" mnemonicParsing="false" onAction="#listarPrestamo" text="Listar por Alumno" />
-                                    <MenuItem fx:id="miListarPrestamoLibro" mnemonicParsing="false" onAction="#listarPrestamo" text="Listar por Libro" />
-                                    <MenuItem fx:id="miListarPrestamoFecha" mnemonicParsing="false" onAction="#listarPrestamo" text="Listar por Fecha" />
                                     <MenuItem fx:id="miBorrarPrestamo" mnemonicParsing="false" onAction="#borrarPrestamo" text="Borrar préstamos" />
                                 </items>
                               </ContextMenu>
                            </contextMenu>
                         </TableView>
-                        <Button fx:id="btMostrarEstadistica" mnemonicParsing="false" onAction="#mostrarEstadistica" text="Mostrar estadistica mensual por curso">
+                        <Button fx:id="btMostrarEstadistica" mnemonicParsing="false" onAction="#mostrarEstadistica" text="Mostrar estadística mensual por curso">
                            <VBox.margin>
                               <Insets bottom="20.0" top="5.0" />
                            </VBox.margin></Button>

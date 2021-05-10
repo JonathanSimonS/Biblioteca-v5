@@ -26,7 +26,6 @@ public class ControladorPrestarLibro {
 	private ControladorEscenarioPrincipal padre;
 	private ObservableList<Alumno> obsAlumnos = FXCollections.observableArrayList();
 	private ObservableList<Libro> obsLibros = FXCollections.observableArrayList();
-	private ObservableList<Prestamo> obsPrestamos = FXCollections.observableArrayList();
 
 
 	@FXML	private VBox vbPrestarLibro;
@@ -62,45 +61,48 @@ public class ControladorPrestarLibro {
 			}
 		}
 	}
-	public void setAlumnos(ObservableList<Alumno> obsAlumnos) {
-		this.obsAlumnos.setAll(obsAlumnos);
-	}
-
-	public void setLibros(ObservableList<Libro> obsLibros) {
-		this.obsLibros.setAll(obsLibros);
-	}	
-	public void initialize() {
-		lvAPrestarLibro.setItems(obsAlumnos);	
-		lvAPrestarLibro.setCellFactory(l -> new CeldaAlumno());
-		
-		lvLPrestarLibro.setItems(obsLibros);	
-		lvLPrestarLibro.setCellFactory(l -> new CeldaLibro());
-	
-	}
-
 	public void setControladorMVC(IControlador controladorMVC) {
 		this.controladorMVC = controladorMVC;
 	}
+	public void initialize() {
+	
+		lvAPrestarLibro.setItems(obsAlumnos);	
+		lvAPrestarLibro.setCellFactory(l -> new CeldaAlumno());
+		lvLPrestarLibro.setItems(obsLibros);	
+		lvLPrestarLibro.setCellFactory(l -> new CeldaLibro());
 
-	public void setPadre(ControladorEscenarioPrincipal padre) {
-		this.padre = padre;
 	}
+	public void setAlumnos(ObservableList<Alumno> obsAlumnos) {
+		this.obsAlumnos.setAll(obsAlumnos);
+	}
+	public void setPadre(ControladorEscenarioPrincipal padre) {
+    	this.padre = padre;
+    }
+	public void setLibros(ObservableList<Libro> obsLibros) {
+		this.obsLibros.setAll(obsLibros);
+	}	
 
 
+
+	public void inicializa() {
+		// aquí cargar
+		padre.actualizaAlumnos();
+		padre.actualizaLibros();
+		lvAPrestarLibro.getSelectionModel().clearSelection();
+		lvLPrestarLibro.getSelectionModel().clearSelection();
+		dpPrestarLibro.setValue(null);
+	}
 
 	@FXML
 	void anadirPrestarLibro(ActionEvent event) {
 		Alumno alumno = lvAPrestarLibro.getSelectionModel().getSelectedItem();
 		Libro libro = lvLPrestarLibro.getSelectionModel().getSelectedItem();
 		LocalDate fechaPrestamo = dpPrestarLibro.getValue();
-
 		try {
 			Prestamo prestamo = new Prestamo(alumno, libro, fechaPrestamo);
 			controladorMVC.prestar(prestamo);
-			obsPrestamos.setAll(controladorMVC.getPrestamos());
-//			padre.actualizaAlumnos();
-//			padre.actualizaLibros();
 			padre.actualizaPrestamos();
+			 
 			Stage propietario = ((Stage) btAnadirPrestarLibro.getScene().getWindow());
 			Dialogos.mostrarDialogoInformacion("Realizar préstamo", "Préstamo realizado correctamente", propietario);
 		} catch (Exception e) {
@@ -109,11 +111,6 @@ public class ControladorPrestarLibro {
 
 	}
 
-	public void inicializa() {
-		lvAPrestarLibro.getSelectionModel().clearSelection();
-		lvLPrestarLibro.getSelectionModel().clearSelection();
-		dpPrestarLibro.setValue(null);
-	}
 
 	@FXML
 	private void cancelar() {

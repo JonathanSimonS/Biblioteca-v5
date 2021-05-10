@@ -243,7 +243,7 @@ public class Prestamos implements IPrestamos{
 
 	public Prestamo buscar(Prestamo prestamo) {
 		if (prestamo == null) {
-			throw new IllegalArgumentException("ERROR: No se puede buscar un préstamo nulo.");
+			throw new IllegalArgumentException("ERROR: Debe selecionar un préstamo.");
 		}
 		if (coleccionPrestamos.contains(prestamo)) {
 			int indice = coleccionPrestamos.indexOf(prestamo);

@@ -29,7 +29,8 @@
             <Label fx:id="lbLibroPrestarLibro" text="Libro:" GridPane.rowIndex="1" />
             <Label fx:id="lbFechaPrestarLibro" text="Fecha:" GridPane.rowIndex="2" />
             <ListView fx:id="lvAPrestarLibro" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" />
-            <ListView fx:id="lvLPrestarLibro" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />            <DatePicker fx:id="dpPrestarLibro" prefHeight="24.0" prefWidth="235.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <ListView fx:id="lvLPrestarLibro" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />            
+            <DatePicker fx:id="dpPrestarLibro" prefHeight="24.0" prefWidth="235.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
          <VBox.margin>
             <Insets left="10.0" right="15.0" top="30.0" />
@@ -37,8 +38,9 @@
       </GridPane>
       <HBox alignment="CENTER" prefHeight="59.0" prefWidth="354.0" spacing="25.0">
          <children>
-            <Button fx:id="btAnadirPrestarLibro" mnemonicParsing="false" onAction="#anadirPrestarLibro" prefHeight="24.0" prefWidth="76.0" text="Añadir" />
             <Button fx:id="btCancelar" mnemonicParsing="false" onAction="#cancelar" text="Cancelar" />
+            <Button fx:id="btAnadirPrestarLibro" mnemonicParsing="false" onAction="#anadirPrestarLibro" prefHeight="24.0" prefWidth="76.0" text="Añadir" />
+
          </children>
       </HBox>
    </children>

@@ -2,6 +2,7 @@ package org.iesalandalus.programacion.biblioteca.mvc.vista.iugpestanas.controlad
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import org.iesalandalus.programacion.biblioteca.mvc.controlador.IControlador;
@@ -34,6 +35,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -47,6 +49,8 @@ public class ControladorEscenarioPrincipal {
 	private ObservableList<Libro> obsLibros = FXCollections.observableArrayList();
 	// ObservableList de Prestamos
 	private ObservableList<Prestamo> obsPrestamos = FXCollections.observableArrayList();
+	
+	private static final String CSS = "estilos/estilos.css";
 
 	// instanciar clase IControlador, para en la vista pasarle el controlador con el
 	// set
@@ -83,10 +87,6 @@ public class ControladorEscenarioPrincipal {
 	@FXML	private ContextMenu cmPrestamos;
 	@FXML	private MenuItem miPrestarLibro;
 	@FXML	private MenuItem miDevolverLibro;
-	@FXML	private MenuItem miListarPrestamo;
-	@FXML	private MenuItem miListarPrestamoAlumno;
-	@FXML	private MenuItem miListarPrestamoLibro;
-	@FXML	private MenuItem miListarPrestamoFecha;
 	@FXML	private MenuItem miBorrarPrestamo;
 	@FXML	private Button btMostrarEstadistica;
 	
@@ -96,11 +96,12 @@ public class ControladorEscenarioPrincipal {
 	@FXML	private TableColumn<Alumno, Curso> tcTACurso;
 	
 	@FXML	private TableView<Libro> tvLibros;
+	@FXML	private TableColumn<Libro, String> tcTLTipo;
 	@FXML	private TableColumn<Libro, String> tcTLTitulo;
 	@FXML   private TableColumn<Libro, String> tcTLAutor;
-	@FXML	private TableColumn<Libro, Integer> tcTLDuracion;
-	@FXML	private TableColumn<Libro, Integer> tcTLPaginas;
-
+	@FXML	private TableColumn<Libro, String> tcTLPaginas;
+	@FXML	private TableColumn<Libro, String> tcTLPuntoss;
+	
 	@FXML	private TableView<Prestamo> tvPrestamos;
 	@FXML	private TableColumn<Prestamo, String> tcTPAlumno;
 	@FXML	private TableColumn<Prestamo, String> tcTPLibro;
@@ -125,31 +126,54 @@ public class ControladorEscenarioPrincipal {
 		tcTACurso.setCellValueFactory(new PropertyValueFactory<>("curso"));
 		tvAlumnos.setItems(obsAlumnos);
 
+		tcTLTipo.setCellValueFactory(libro -> new SimpleStringProperty(getTipoLibro(libro.getValue())));
 		tcTLTitulo.setCellValueFactory(new PropertyValueFactory<>("titulo"));
 		tcTLAutor.setCellValueFactory(new PropertyValueFactory<>("autor"));
-		tcTLDuracion.setCellValueFactory(new PropertyValueFactory<>("duracion"));
-		tcTLPaginas.setCellValueFactory(new PropertyValueFactory<>("numPaginas"));
+		tcTLPaginas.setCellValueFactory(libro -> new SimpleStringProperty(getLibroString(libro.getValue())));
+		tcTLPuntoss.setCellValueFactory(libro -> new SimpleStringProperty(Float.toString(libro.getValue().getPuntos())));
 		tvLibros.setItems(obsLibros);
-
-		tcTPAlumno
-				.setCellValueFactory(prestamo -> new SimpleStringProperty(prestamo.getValue().getAlumno().getNombre()));
+		
+		tcTPAlumno.setCellValueFactory(prestamo -> new SimpleStringProperty(prestamo.getValue().getAlumno().getNombre()));
 		tcTPLibro.setCellValueFactory(prestamo -> new SimpleStringProperty(prestamo.getValue().getLibro().getTitulo()));
-		tcTPFechaPrestamo.setCellValueFactory(
-				prestamo -> new SimpleStringProperty(FORMATO_FECHA.format((prestamo.getValue().getFechaPrestamo()))));
-//		tcTPFechaDevolucion.setCellValueFactory(prestamo -> new SimpleStringProperty(FORMATO_FECHA.format((prestamo.getValue().getFechaDevolucion()))));
+		tcTPFechaPrestamo.setCellValueFactory(prestamo -> new SimpleStringProperty(FORMATO_FECHA.format(prestamo.getValue().getFechaPrestamo())));
+		tcTPFechaDevolucion.setCellValueFactory(prestamo -> new SimpleStringProperty(getFechaDevo(prestamo.getValue().getFechaDevolucion())));
 		tvPrestamos.setItems(obsPrestamos);
 
 	}
 
-// implemento método para añadir o no la fecha de devolución, ya que no puede ser nula
-//	private LocalDate getFechaString(Prestamo prestamo) {
-//		String fecha="";
-//		if (prestamo.getFechaDevolucion() == null) {
-//			return fecha;
-//		}
-//		return fecha=prestamo.getFechaDevolucion();
-//		
-//	}
+	// devuelvo valor según clase del objeto libro
+	private String getLibroString(Libro libro) {
+		String durPag ;
+		if (libro instanceof AudioLibro) {
+			durPag = Integer.toString(((AudioLibro)libro).getDuracion());
+			durPag = durPag + " minutos";
+		} else {
+			durPag = Integer.toString(((LibroEscrito)libro).getNumPaginas());
+			durPag = durPag + " páginas";
+
+		}
+		return durPag;
+	}
+	// devuelvo imagen según clase del objeto libro
+	private String getTipoLibro(Libro libro) {
+		String tipo; 
+		if (libro instanceof AudioLibro) {
+			tipo="AudioLibro";
+		} else {
+			tipo="Escrito";
+		}
+		return tipo;
+	}
+	// devuelvo fecha de devolución si tiene, o cadena vacía
+	private String getFechaDevo(LocalDate fecha) {
+		String tipo; 
+		if (fecha == null ) {
+			tipo ="";
+		} else {
+			tipo = FORMATO_FECHA.format(fecha);
+		}
+		return tipo;
+	}
 
 	public void actualizaAlumnos() {
     	tvAlumnos.getSelectionModel().clearSelection();
@@ -190,8 +214,9 @@ public class ControladorEscenarioPrincipal {
 			cAnadirAlumno.inicializa();
 
 			Scene escenaAnadirAlumno = new Scene(raizAnadirAlumno);
-			anadirAlumno.initModality(Modality.APPLICATION_MODAL);
+			escenaAnadirAlumno.getStylesheets().add(LocalizadorRecursos.class.getResource(CSS).toExternalForm());
 			anadirAlumno.setTitle("Añadir Alumno");
+			anadirAlumno.initModality(Modality.APPLICATION_MODAL);
 			anadirAlumno.setScene(escenaAnadirAlumno);
 		} else {
 			cAnadirAlumno.inicializa();
@@ -214,12 +239,12 @@ public class ControladorEscenarioPrincipal {
 			cAnadirLibro.setControladorMVC(controladorMVC);
 			cAnadirLibro.setLibros(obsLibros);
 			cAnadirLibro.inicializa();
-
+			actualizaLibros();
 			Scene escenaAnadirLibro = new Scene(raizAnadirLibro);
-			anadirLibro.initModality(Modality.APPLICATION_MODAL);
+			escenaAnadirLibro.getStylesheets().add(LocalizadorRecursos.class.getResource(CSS).toExternalForm());
 			anadirLibro.setTitle("Añadir Libro");
+			anadirLibro.initModality(Modality.APPLICATION_MODAL);
 			anadirLibro.setScene(escenaAnadirLibro);
-			
 		} else {
 			cAnadirLibro.inicializa();
 		}
@@ -234,13 +259,9 @@ public class ControladorEscenarioPrincipal {
 					"¿Estás seguro de que quieres borrar al alumno?", null)) {
 				controladorMVC.borrar(alumno); // borro al alumno
 				obsAlumnos.remove(alumno);
-
-				// OJO
-				//obsPrestamos.remove(alumno);
-
 				actualizaAlumnos();
 				actualizaPrestamos();
-				Dialogos.mostrarDialogoInformacion("Borrar alumno", "Alumno borrado satisfactoriamente");
+				Dialogos.mostrarDialogoInformacion("Borrar alumno", "Alumno borrado correctamente");
 			}
 
 		} catch (Exception e) {
@@ -258,13 +279,9 @@ public class ControladorEscenarioPrincipal {
 					"¿Estás seguro de que quieres borrar el libro?", null)) {
 				controladorMVC.borrar(libro); // borro el libro
 				obsLibros.remove(libro);
-
-				// OJO
-			
-				obsPrestamos.remove(libro); //elimino los préstamos que pueda tener
-
 				actualizaLibros();
-				Dialogos.mostrarDialogoInformacion("Borrar libro", "Libro borrado satisfactoriamente");
+				actualizaPrestamos();
+				Dialogos.mostrarDialogoInformacion("Borrar libro", "Libro borrado correctamente");
 			}
 
 		} catch (Exception e) {
@@ -274,18 +291,48 @@ public class ControladorEscenarioPrincipal {
 
 	@FXML
 	void borrarPrestamo(ActionEvent event) {
+		Prestamo prestamo = null;
+		try {
+			prestamo = tvPrestamos.getSelectionModel().getSelectedItem();
+			if (prestamo != null && Dialogos.mostrarDialogoConfirmacion("Borrar préstamo",
+					"¿Estás seguro de que quieres borrar el préstamo?", null)) {
+				controladorMVC.borrar(prestamo); // borro mostrarDialogoConfirmacion
+				obsPrestamos.remove(prestamo);
+				actualizaPrestamos();
+				Dialogos.mostrarDialogoInformacion("Borrar préstamo", "Préstamo borrado correctamente");
+			}
+		} catch (Exception e) {
+			Dialogos.mostrarDialogoError("Borrar préstamo", e.getMessage());
+		}
+	}
+
+	@FXML
+	void devolverLibro(ActionEvent event) throws IOException {
+		Prestamo prestamo = null;
+		try {
+			if (Dialogos.mostrarDialogoConfirmacion("Devolver préstamo","¿Estás seguro de que quieres devolver el préstamo?", null)) {
+				prestamo = tvPrestamos.getSelectionModel().getSelectedItem();
+				controladorMVC.devolver(prestamo, LocalDate.now());			
+				actualizaPrestamos();
+				Dialogos.mostrarDialogoInformacion("Devolver préstamos", "Préstamo devuelto correctamente");
+			}
+
+
+		} catch (Exception e) {
+			Dialogos.mostrarDialogoError("Devolver préstamo", e.getMessage());
+		}
+	}
+
+	@FXML
+	void listarPrestamo(ActionEvent event) {
 
 	}
 
 	@FXML
-	void devolverLibro(ActionEvent event) {
+	void mostrarEstadistica(ActionEvent event) throws IOException {
 
 	}
-
-	@FXML
-	void mostrarEstadistica(ActionEvent event) {
-
-	}
+	
 
 	@FXML
 	void prestarLibro(ActionEvent event) throws IOException {
@@ -306,10 +353,11 @@ public class ControladorEscenarioPrincipal {
 			cPrestarLibro.setLibros(obsLibros);
 			cPrestarLibro.setAlumnos(obsAlumnos);
 			cPrestarLibro.inicializa();
-
+			
 			Scene escenaPrestarLibro = new Scene(raizPrestarLibro);
-			prestarLibro.initModality(Modality.APPLICATION_MODAL);
+			escenaPrestarLibro.getStylesheets().add(LocalizadorRecursos.class.getResource(CSS).toExternalForm());
 			prestarLibro.setTitle("Prestar Libro");
+			prestarLibro.initModality(Modality.APPLICATION_MODAL);
 			prestarLibro.setScene(escenaPrestarLibro);
 		} else {
 			cPrestarLibro.inicializa();

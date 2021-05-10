@@ -23,7 +23,8 @@ import javafx.stage.Stage;
 public class ControladorAnadirLibro {
 	
 	private static final String ER_OBLIGATORIO = "[a-zA-ZáéíóúÁÉÍÓÚ ,.'-]+\s{1}[a-zA-ZáéíóúÁÉÍÓÚ ,.'-]+";
-	
+	private static final String ER_TITULO = "[a-zA-ZáéíóúÁÉÍÓÚ ,.'-]{1,}";
+
 	private static final String ER_CIFRA = "\\d{1,4}";
 
 	private IControlador controladorMVC;
@@ -46,12 +47,23 @@ public class ControladorAnadirLibro {
     @FXML    private TextField tfDuracionLibro;
     @FXML    private Button btAnadirLibro;
     @FXML    private Button btCancelarLibro;
+
     
     @FXML
     void anadirLibro(ActionEvent event) {
-    	Libro libro = null;
+		String titulo = tfTituloLibro.getText();
+		String autor = tfAutorLibro.getText();
+		RadioButton seleccion = (RadioButton)groupTipoLibro.getSelectedToggle();
     	try {
-    		libro = getLibro();
+    		int duracion;
+			Libro libro;
+    		if (seleccion == rbAudioLibro) {
+				duracion = Integer.parseInt(tfDuracionLibro.getText());
+				libro=new AudioLibro(titulo, autor, duracion);
+			} else {
+				duracion = Integer.parseInt(tfPaginasLibro.getText());
+				libro=new LibroEscrito(titulo, autor, duracion);
+			}
 			controladorMVC.insertar(libro);
 			obsLibros.setAll(controladorMVC.getLibros());
 			Stage propietario = ((Stage) btAnadirLibro.getScene().getWindow());
@@ -69,7 +81,7 @@ public class ControladorAnadirLibro {
 	}
     
 	public void initialize() {
-		tfTituloLibro.textProperty().addListener((ob,ov,nv) -> compruebaCampoTexto(ER_OBLIGATORIO, tfTituloLibro));
+		tfTituloLibro.textProperty().addListener((ob,ov,nv) -> compruebaCampoTexto(ER_TITULO, tfTituloLibro));
 		tfAutorLibro.textProperty().addListener((ob,ov,nv) -> compruebaCampoTexto(ER_OBLIGATORIO, tfAutorLibro));
 		groupTipoLibro.selectedToggleProperty().addListener((observable, oldValue, newValue) -> getTipoLibro());
 		tfPaginasLibro.textProperty().addListener((ob,ov,nv) -> compruebaCampoTexto(ER_CIFRA, tfPaginasLibro));
@@ -79,13 +91,11 @@ public class ControladorAnadirLibro {
 	// método para mostrar opciones dependiendo del RadioButton seleccionado
 	private void getTipoLibro() {
 		RadioButton seleccion = (RadioButton)groupTipoLibro.getSelectedToggle();
-	
 		if (seleccion == rbAudioLibro) {
 			tfPaginasLibro.setVisible(false);
 			lbPaginasLibro.setVisible(false);
 			tfDuracionLibro.setVisible(true);
 			lbDuracionLibro.setVisible(true);
-			
 		}
 		else if (seleccion == rbEscrito){
 			tfDuracionLibro.setVisible(false);
@@ -108,22 +118,7 @@ public class ControladorAnadirLibro {
     	compruebaCampoTexto(ER_CIFRA, tfDuracionLibro);
     }
 	
-	// devuelve el libro según su tipo
-	private Libro getLibro() {
-		Libro libro = null;
-		if (libro instanceof AudioLibro) {
-			String titulo = tfTituloLibro.getText();
-			String autor = tfAutorLibro.getText();
-			int duracion = Integer.parseInt(tfDuracionLibro.getText());
-			return new AudioLibro(titulo, autor, duracion);
-		} else {
-			String titulo = tfTituloLibro.getText();
-			String autor = tfAutorLibro.getText();
-			int paginas = Integer.parseInt(tfPaginasLibro.getText());
-			return new LibroEscrito(titulo, autor, paginas);
-		}
-	}
-	
+
 	private void compruebaCampoTexto(String er, TextField campoTexto) {	
 		String texto = campoTexto.getText();
 		if (texto.matches(er)) {
