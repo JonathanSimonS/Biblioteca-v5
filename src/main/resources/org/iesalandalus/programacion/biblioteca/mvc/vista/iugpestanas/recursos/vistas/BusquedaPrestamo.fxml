@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.iesalandalus.programacion.biblioteca.mvc.vista.iugpestanas.controladoresvistas.ControladorBuscarPrestamo">
+   <children>
+      <GridPane alignment="CENTER" hgap="10.0" maxWidth="507.0" prefHeight="32.0" prefWidth="507.0" vgap="10.0">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="85.0" minWidth="10.0" prefWidth="75.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="85.0" minWidth="10.0" prefWidth="75.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="85.0" minWidth="10.0" prefWidth="75.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <RadioButton fx:id="rbLibro" mnemonicParsing="false" prefHeight="18.0" prefWidth="123.0" selected="true" text="Libro" GridPane.columnIndex="1">
+               <toggleGroup>
+                  <ToggleGroup fx:id="tgBusquedaPrestamo" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="rbAlumno" mnemonicParsing="false" prefHeight="18.0" prefWidth="123.0" text="Alumno" toggleGroup="$tgBusquedaPrestamo" GridPane.columnIndex="2" />
+            <RadioButton fx:id="rbFecha" mnemonicParsing="false" prefHeight="18.0" prefWidth="123.0" text="Fecha" toggleGroup="$tgBusquedaPrestamo" GridPane.columnIndex="3" />
+            <Label prefHeight="16.0" prefWidth="120.0" text="BUSCAR POR:" />
+         </children>
+         <VBox.margin>
+            <Insets bottom="10.0" top="10.0" />
+         </VBox.margin>
+      </GridPane>
+      <GridPane maxWidth="300.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="144.0" minWidth="10.0" prefWidth="74.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="226.0" minWidth="10.0" prefWidth="226.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <DatePicker fx:id="dpBusqueda" prefHeight="24.0" prefWidth="200.0" GridPane.columnIndex="1" />
+            <TextField fx:id="tfBusqueda" maxWidth="200.0" GridPane.columnIndex="1" />
+            <Label fx:id="lbBusqueda" text="Titulo" />
+         </children>
+         <VBox.margin>
+            <Insets bottom="10.0" top="5.0" />
+         </VBox.margin>
+      </GridPane>
+      <TableView fx:id="tvBusquedaPrestamos" maxWidth="524.0" prefHeight="287.0" prefWidth="524.0">
+        <columns>
+          <TableColumn fx:id="tcBusquedaLibro" prefWidth="195.0" text="Libro" />
+          <TableColumn fx:id="tcBusquedaAlumno" prefWidth="204.0" text="Alumno" />
+            <TableColumn fx:id="tcBusquedaFecha" prefWidth="124.0" text="Fecha prestamo" />
+        </columns>
+         <VBox.margin>
+            <Insets top="10.0" />
+         </VBox.margin>
+      </TableView>
+      <HBox alignment="CENTER" prefHeight="60.0" prefWidth="600.0" spacing="30.0">
+         <children>
+            <Button fx:id="btSalir" mnemonicParsing="false" onAction="#salir" prefHeight="24.0" prefWidth="90.0" text="Atrás" />
+            <Button fx:id="btLimpiar" mnemonicParsing="false" onAction="#limpiar" prefHeight="24.0" prefWidth="90.0" text="Limpiar" />
+         </children>
+      </HBox>
+   </children>
+</VBox>

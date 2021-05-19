@@ -84,6 +84,8 @@ public class ControladorPrestarLibro {
 	public void inicializa() {
 		lvAPrestarLibro.getSelectionModel().clearSelection();
 		lvLPrestarLibro.getSelectionModel().clearSelection();
+		obsAlumnos.setAll(controladorMVC.getAlumnos());
+		obsLibros.setAll(controladorMVC.getLibros());
 		dpPrestarLibro.setValue(null);
 	}
 

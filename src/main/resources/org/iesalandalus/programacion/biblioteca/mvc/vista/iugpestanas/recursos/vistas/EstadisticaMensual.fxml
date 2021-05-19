@@ -88,7 +88,7 @@
       </GridPane>
       <HBox alignment="CENTER" prefHeight="72.0" prefWidth="389.0" spacing="30.0">
          <children>
-            <Button fx:id="btSalir" mnemonicParsing="false" onAction="#salir" prefHeight="24.0" prefWidth="80.0" text="Salir" />
+            <Button fx:id="btSalir" mnemonicParsing="false" onAction="#salir" prefHeight="24.0" prefWidth="80.0" text="Atrás" />
             <Button fx:id="btLimpiar" mnemonicParsing="false" onAction="#limpiar" prefHeight="24.0" prefWidth="80.0" text="Limpiar" />
          </children>
       </HBox>

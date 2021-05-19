@@ -45,7 +45,7 @@ public class ControladorEscenarioPrincipal {
 	private ObservableList<Libro> obsLibros = FXCollections.observableArrayList();
 	FilteredList<Libro> filtroLibros = new FilteredList<>(obsLibros, p -> true);
 	private ObservableList<Prestamo> obsPrestamos = FXCollections.observableArrayList();
-	
+
 	private IControlador controladorMVC;
 
 	private static final DateTimeFormatter FORMATO_FECHA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -82,10 +82,10 @@ public class ControladorEscenarioPrincipal {
 	@FXML	private MenuItem miDevolverLibro;
 	@FXML	private MenuItem miBorrarPrestamo;
 	@FXML	private Button btMostrarEstadistica;
-	
 	@FXML   private MenuItem miBuscarPrestamo;
     @FXML   private TextField tfBuscarLibro;
     @FXML   private TextField tfBuscarAlumno;
+    @FXML   private Button btLimpiar;
 		
 	@FXML	private TableView<Alumno> tvAlumnos;
 	@FXML	private TableColumn<Alumno, String> tcTANombre;
@@ -113,6 +113,8 @@ public class ControladorEscenarioPrincipal {
 	private ControladorPrestarLibro cPrestarLibro;
 	private Stage mostrarEstadistica;
 	private ControladorEstadisticaMensual cMostrarEstadistica;
+	private Stage buscarPrestamo;
+	private ControladorBuscarPrestamo cBuscarPrestamo;
 	
 	public void setControladorMVC(IControlador controladorMVC) {
 		this.controladorMVC = controladorMVC;
@@ -124,7 +126,7 @@ public class ControladorEscenarioPrincipal {
 		tcTACurso.setCellValueFactory(new PropertyValueFactory<>("curso"));
 		tvAlumnos.setItems(obsAlumnos);
 		
-		// implemento búsqueda de Alumno
+		// implemento búsqueda de alumnos
 		SortedList<Alumno> alumnos = new SortedList<>(filtroAlumnos);
         alumnos.comparatorProperty().bind(tvAlumnos.comparatorProperty());
         tvAlumnos.setItems(alumnos); 
@@ -145,7 +147,7 @@ public class ControladorEscenarioPrincipal {
 		tcTLPuntoss.setCellValueFactory(libro -> new SimpleStringProperty(Float.toString(libro.getValue().getPuntos())));
 		tvLibros.setItems(obsLibros);
 		
-		// implemento búsqueda de Libro
+		// implemento búsqueda de libros
 		SortedList<Libro> libros = new SortedList<>(filtroLibros);
 		libros.comparatorProperty().bind(tvLibros.comparatorProperty());
 		tvLibros.setItems(libros); 
@@ -158,9 +160,7 @@ public class ControladorEscenarioPrincipal {
 		           return titulo.contains(newValue.toLowerCase());
 		     });
 		 });
-		
-		tfBuscarLibro.textProperty().addListener((observable,oldValue,newValue) -> buscarLibro(newValue));
-		
+				
 		tcTPAlumno.setCellValueFactory(prestamo -> new SimpleStringProperty(prestamo.getValue().getAlumno().getNombre()));
 		tcTPLibro.setCellValueFactory(prestamo -> new SimpleStringProperty(prestamo.getValue().getLibro().getTitulo()));
 		tcTPFechaPrestamo.setCellValueFactory(prestamo -> new SimpleStringProperty(FORMATO_FECHA.format(prestamo.getValue().getFechaPrestamo())));
@@ -200,15 +200,6 @@ public class ControladorEscenarioPrincipal {
 			tipo = FORMATO_FECHA.format(fecha);
 		}
 		return tipo;
-	}
-	
-	private void buscarAlumno(String newValue) {
-        
-	}
-	private void buscarLibro(String newValue) {
-		String texto =  tfBuscarLibro.getText();
-	
-		
 	}
 
 	public void actualizaAlumnos() {
@@ -325,9 +316,30 @@ public class ControladorEscenarioPrincipal {
 	}
 	
     @FXML
-    void buscarPrestamo(ActionEvent event) {
-
+    void buscarPrestamo(ActionEvent event) throws IOException {
+    	crearBuscarPrestamo();
+		buscarPrestamo.showAndWait();
     }
+
+	private void crearBuscarPrestamo() throws IOException {
+		if (buscarPrestamo == null) {
+			buscarPrestamo = new Stage();
+			FXMLLoader cargadorBuscarPrestamo = new FXMLLoader(
+					LocalizadorRecursos.class.getResource("vistas/BusquedaPrestamo.fxml"));
+			VBox raizBuscarPrestamo = cargadorBuscarPrestamo.load();
+			cBuscarPrestamo = cargadorBuscarPrestamo.getController();
+			cBuscarPrestamo.setControladorMVC(controladorMVC);
+			cBuscarPrestamo.setPrestamos(obsPrestamos);
+			cBuscarPrestamo.inicializa();
+			Scene escenaBuscarPrestamo = new Scene(raizBuscarPrestamo);
+			escenaBuscarPrestamo.getStylesheets().add(LocalizadorRecursos.class.getResource(CSS).toExternalForm());
+			buscarPrestamo.setTitle("Buscar Préstamo");
+			buscarPrestamo.initModality(Modality.APPLICATION_MODAL);
+			buscarPrestamo.setScene(escenaBuscarPrestamo);
+		} else {
+			cBuscarPrestamo.inicializa();
+		}
+	}
 
 	@FXML
 	void borrarPrestamo(ActionEvent event) {
@@ -390,7 +402,6 @@ public class ControladorEscenarioPrincipal {
 			mostrarEstadistica.setTitle("Estadística mensual por curso");
 			mostrarEstadistica.initModality(Modality.APPLICATION_MODAL);
 			mostrarEstadistica.setScene(escenaMostrarEstadistica);
-			mostrarEstadistica.showAndWait();
 		} else {
 			cMostrarEstadistica.inicializa();
 		}
@@ -438,6 +449,11 @@ public class ControladorEscenarioPrincipal {
 			controladorMVC.terminar();
 			System.exit(0);
 		}
+	}
+
+	@FXML 
+	public void limpiar() {
+		
 	}
 
 }
