@@ -23,7 +23,7 @@ import javafx.stage.Stage;
 public class ControladorAnadirLibro {
 	
 	private static final String ER_OBLIGATORIO = "[a-zA-ZáéíóúÁÉÍÓÚ ,.'-]+\s{1}[a-zA-ZáéíóúÁÉÍÓÚ ,.'-]+";
-	private static final String ER_TITULO = "[a-zA-ZáéíóúÁÉÍÓÚ ,.'-]{1,}";
+	private static final String ER_TITULO = "[1234567890a-zA-ZáéíóúÁÉÍÓÚ ,.'-]{1,}";
 
 	private static final String ER_CIFRA = "\\d{1,4}";
 

@@ -15,6 +15,8 @@ import org.iesalandalus.programacion.biblioteca.mvc.vista.iugpestanas.utilidades
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -29,6 +31,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
@@ -37,19 +40,16 @@ import javafx.stage.Stage;
 
 public class ControladorEscenarioPrincipal {
 
-	// ObservableList de Alumnos
 	private ObservableList<Alumno> obsAlumnos = FXCollections.observableArrayList();
-	// ObservableList de Libros
+	FilteredList<Alumno> filtroAlumnos = new FilteredList<>(obsAlumnos, p -> true);
 	private ObservableList<Libro> obsLibros = FXCollections.observableArrayList();
-	// ObservableList de Prestamos
+	FilteredList<Libro> filtroLibros = new FilteredList<>(obsLibros, p -> true);
 	private ObservableList<Prestamo> obsPrestamos = FXCollections.observableArrayList();
 	
-	private static final String CSS = "estilos/estilos.css";
-
-	// instanciar clase IControlador, para en la vista pasarle el controlador con el set
 	private IControlador controladorMVC;
 
 	private static final DateTimeFormatter FORMATO_FECHA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	private static final String CSS = "estilos/estilos.css";
 
 	@FXML	private VBox vbBiblioteca;
 	@FXML	private MenuBar mbBiblioteca;
@@ -83,6 +83,10 @@ public class ControladorEscenarioPrincipal {
 	@FXML	private MenuItem miBorrarPrestamo;
 	@FXML	private Button btMostrarEstadistica;
 	
+	@FXML   private MenuItem miBuscarPrestamo;
+    @FXML   private TextField tfBuscarLibro;
+    @FXML   private TextField tfBuscarAlumno;
+		
 	@FXML	private TableView<Alumno> tvAlumnos;
 	@FXML	private TableColumn<Alumno, String> tcTANombre;
 	@FXML	private TableColumn<Alumno, String> tcTACorreo;
@@ -100,7 +104,7 @@ public class ControladorEscenarioPrincipal {
 	@FXML	private TableColumn<Prestamo, String> tcTPLibro;
 	@FXML	private TableColumn<Prestamo, String> tcTPFechaPrestamo;
 	@FXML	private TableColumn<Prestamo, String> tcTPFechaDevolucion;
-
+	
 	private Stage anadirAlumno;
 	private ControladorAnadirAlumno cAnadirAlumno;
 	private Stage anadirLibro;
@@ -109,7 +113,6 @@ public class ControladorEscenarioPrincipal {
 	private ControladorPrestarLibro cPrestarLibro;
 	private Stage mostrarEstadistica;
 	private ControladorEstadisticaMensual cMostrarEstadistica;
-	
 	
 	public void setControladorMVC(IControlador controladorMVC) {
 		this.controladorMVC = controladorMVC;
@@ -120,6 +123,20 @@ public class ControladorEscenarioPrincipal {
 		tcTACorreo.setCellValueFactory(new PropertyValueFactory<>("correo"));
 		tcTACurso.setCellValueFactory(new PropertyValueFactory<>("curso"));
 		tvAlumnos.setItems(obsAlumnos);
+		
+		// implemento búsqueda de Alumno
+		SortedList<Alumno> alumnos = new SortedList<>(filtroAlumnos);
+        alumnos.comparatorProperty().bind(tvAlumnos.comparatorProperty());
+        tvAlumnos.setItems(alumnos); 
+		tfBuscarAlumno.textProperty().addListener((observable,oldValue,newValue) -> {
+            filtroAlumnos.setPredicate(alumno -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String nombre = alumno.getNombre().toLowerCase();
+                return nombre.contains(newValue.toLowerCase());
+            });
+        });
 
 		tcTLTipo.setCellValueFactory(libro -> new SimpleStringProperty(getTipoLibro(libro.getValue())));
 		tcTLTitulo.setCellValueFactory(new PropertyValueFactory<>("titulo"));
@@ -128,12 +145,27 @@ public class ControladorEscenarioPrincipal {
 		tcTLPuntoss.setCellValueFactory(libro -> new SimpleStringProperty(Float.toString(libro.getValue().getPuntos())));
 		tvLibros.setItems(obsLibros);
 		
+		// implemento búsqueda de Libro
+		SortedList<Libro> libros = new SortedList<>(filtroLibros);
+		libros.comparatorProperty().bind(tvLibros.comparatorProperty());
+		tvLibros.setItems(libros); 
+		tfBuscarLibro.textProperty().addListener((observable,oldValue,newValue) -> {
+		      filtroLibros.setPredicate(libro -> {
+		           if (newValue == null || newValue.isEmpty()) {
+		                  return true;
+		           }
+		           String titulo = libro.getTitulo().toLowerCase();
+		           return titulo.contains(newValue.toLowerCase());
+		     });
+		 });
+		
+		tfBuscarLibro.textProperty().addListener((observable,oldValue,newValue) -> buscarLibro(newValue));
+		
 		tcTPAlumno.setCellValueFactory(prestamo -> new SimpleStringProperty(prestamo.getValue().getAlumno().getNombre()));
 		tcTPLibro.setCellValueFactory(prestamo -> new SimpleStringProperty(prestamo.getValue().getLibro().getTitulo()));
 		tcTPFechaPrestamo.setCellValueFactory(prestamo -> new SimpleStringProperty(FORMATO_FECHA.format(prestamo.getValue().getFechaPrestamo())));
 		tcTPFechaDevolucion.setCellValueFactory(prestamo -> new SimpleStringProperty(getFechaDevo(prestamo.getValue().getFechaDevolucion())));
 		tvPrestamos.setItems(obsPrestamos);
-
 	}
 
 	// devuelvo valor según clase del objeto libro
@@ -168,6 +200,15 @@ public class ControladorEscenarioPrincipal {
 			tipo = FORMATO_FECHA.format(fecha);
 		}
 		return tipo;
+	}
+	
+	private void buscarAlumno(String newValue) {
+        
+	}
+	private void buscarLibro(String newValue) {
+		String texto =  tfBuscarLibro.getText();
+	
+		
 	}
 
 	public void actualizaAlumnos() {
@@ -282,6 +323,11 @@ public class ControladorEscenarioPrincipal {
 			Dialogos.mostrarDialogoError("Borrar libro", e.getMessage());
 		}
 	}
+	
+    @FXML
+    void buscarPrestamo(ActionEvent event) {
+
+    }
 
 	@FXML
 	void borrarPrestamo(ActionEvent event) {
@@ -299,6 +345,7 @@ public class ControladorEscenarioPrincipal {
 			Dialogos.mostrarDialogoError("Borrar préstamo", e.getMessage());
 		}
 	}
+
 
 	@FXML
 	void devolverLibro(ActionEvent event) throws IOException {
