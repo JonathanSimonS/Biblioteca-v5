@@ -27,7 +27,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label fx:id="lbTituloLibro" alignment="CENTER_RIGHT" prefHeight="16.0" prefWidth="280.0" text="Titulo:" textAlignment="CENTER">
+            <Label fx:id="lbTituloLibro" alignment="CENTER_RIGHT" prefHeight="16.0" prefWidth="280.0" text="Título:" textAlignment="CENTER">
                <font>
                   <Font size="13.0" />
                </font>
@@ -70,12 +70,12 @@
             </HBox>
             <TextField fx:id="tfPaginasLibro" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextField fx:id="tfDuracionLibro" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Label fx:id="lbPaginasLibro" alignment="CENTER_RIGHT" prefHeight="16.0" prefWidth="210.0" text="Paginas:" GridPane.rowIndex="3">
+            <Label fx:id="lbPaginasLibro" alignment="CENTER_RIGHT" prefHeight="16.0" prefWidth="210.0" text="Páginas:" GridPane.rowIndex="3">
                <font>
                   <Font size="13.0" />
                </font>
             </Label>
-            <Label fx:id="lbDuracionLibro" alignment="CENTER_RIGHT" prefHeight="16.0" prefWidth="202.0" text="Duracion:" GridPane.rowIndex="3">
+            <Label fx:id="lbDuracionLibro" alignment="CENTER_RIGHT" prefHeight="16.0" prefWidth="202.0" text="Duración:" GridPane.rowIndex="3">
                <font>
                   <Font size="13.0" />
                </font>

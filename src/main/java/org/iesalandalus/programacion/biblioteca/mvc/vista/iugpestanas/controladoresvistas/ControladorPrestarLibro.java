@@ -27,17 +27,25 @@ public class ControladorPrestarLibro {
 	private ObservableList<Alumno> obsAlumnos = FXCollections.observableArrayList();
 	private ObservableList<Libro> obsLibros = FXCollections.observableArrayList();
 
+	@FXML private VBox vbPrestarLibro;
+	@FXML private Label lbAlumnoPrestarLibro;
+	@FXML private Label lbLibroPrestarLibro;
+	@FXML private Label lbFechaPrestarLibro;
+	@FXML private ListView<Alumno> lvAPrestarLibro;
+	@FXML private ListView<Libro> lvLPrestarLibro;
+	@FXML private DatePicker dpPrestarLibro;
+	@FXML private Button btAnadirPrestarLibro;
+	@FXML private Button btCancelar;
 
-	@FXML	private VBox vbPrestarLibro;
-	@FXML	private Label lbAlumnoPrestarLibro;
-	@FXML	private Label lbLibroPrestarLibro;
-	@FXML	private Label lbFechaPrestarLibro;
-	@FXML	private ListView<Alumno> lvAPrestarLibro;
-	@FXML	private ListView<Libro> lvLPrestarLibro;
-	@FXML	private DatePicker dpPrestarLibro;
-	@FXML	private Button btAnadirPrestarLibro;
-	@FXML	private Button btCancelar;
-
+	public void setControladorMVC(IControlador controladorMVC) {
+		this.controladorMVC = controladorMVC;
+	}
+	public void initialize() {
+		lvAPrestarLibro.setItems(obsAlumnos);	
+		lvAPrestarLibro.setCellFactory(l -> new CeldaAlumno());
+		lvLPrestarLibro.setItems(obsLibros);	
+		lvLPrestarLibro.setCellFactory(l -> new CeldaLibro());
+	}
 	
 	private class CeldaAlumno extends ListCell<Alumno> {
 		@Override
@@ -47,6 +55,7 @@ public class ControladorPrestarLibro {
 				setText("");
 			} else {
 				setText(alumno.getNombre());
+				lvLPrestarLibro.refresh();
 			}
 		}
 	}
@@ -58,19 +67,9 @@ public class ControladorPrestarLibro {
 				setText("");
 			} else {
 				setText(libro.getTitulo());
+				lvAPrestarLibro.refresh();
 			}
 		}
-	}
-	public void setControladorMVC(IControlador controladorMVC) {
-		this.controladorMVC = controladorMVC;
-	}
-	public void initialize() {
-	
-		lvAPrestarLibro.setItems(obsAlumnos);	
-		lvAPrestarLibro.setCellFactory(l -> new CeldaAlumno());
-		lvLPrestarLibro.setItems(obsLibros);	
-		lvLPrestarLibro.setCellFactory(l -> new CeldaLibro());
-
 	}
 	public void setAlumnos(ObservableList<Alumno> obsAlumnos) {
 		this.obsAlumnos.setAll(obsAlumnos);
@@ -82,12 +81,7 @@ public class ControladorPrestarLibro {
 		this.obsLibros.setAll(obsLibros);
 	}	
 
-
-
 	public void inicializa() {
-		// aquí cargar
-		padre.actualizaAlumnos();
-		padre.actualizaLibros();
 		lvAPrestarLibro.getSelectionModel().clearSelection();
 		lvLPrestarLibro.getSelectionModel().clearSelection();
 		dpPrestarLibro.setValue(null);
@@ -101,14 +95,12 @@ public class ControladorPrestarLibro {
 		try {
 			Prestamo prestamo = new Prestamo(alumno, libro, fechaPrestamo);
 			controladorMVC.prestar(prestamo);
-			padre.actualizaPrestamos();
-			 
+			padre.actualizaPrestamos(); 
 			Stage propietario = ((Stage) btAnadirPrestarLibro.getScene().getWindow());
 			Dialogos.mostrarDialogoInformacion("Realizar préstamo", "Préstamo realizado correctamente", propietario);
 		} catch (Exception e) {
 			Dialogos.mostrarDialogoError("Realizar préstamo", e.getMessage());
 		}
-
 	}
 
 

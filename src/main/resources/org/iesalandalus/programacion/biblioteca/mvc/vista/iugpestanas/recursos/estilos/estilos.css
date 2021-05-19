@@ -63,14 +63,14 @@
 	-fx-background-radius: 10;
 }
 
-#btAnadir,#bAnadirAlumno,#btAnadirPrestarLibro,#btAnadirLibro, #btAceptar {
+#btAnadir,#btLimpiar,#bAnadirAlumno,#btAnadirPrestarLibro,#btAnadirLibro,#btMostrarEstadistica, #btAceptar {
 	-fx-font: 15 "arial";
 	-fx-base: #e0e0e0;
 	-fx-border-color: #595959 ;
 	-fx-border-radius: 10;
 }
 
-#btCancelar,#bCancelar,#btCancelarLibro, #btBorrar, #btCerrar {
+#btCancelar,#btSalir,#bCancelar,#btCancelarLibro, #btBorrar, #btCerrar {
 	-fx-font: 15 "arial";
 	-fx-base: #363636;
 }

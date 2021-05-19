@@ -22,7 +22,7 @@
             <Insets top="10.0" />
          </VBox.margin>
       </Label>
-      <Label text="Jonathan Simon Sanchez">
+      <Label text="Jonathan Simón Sánchez">
          <VBox.margin>
             <Insets bottom="10.0" top="10.0" />
          </VBox.margin>

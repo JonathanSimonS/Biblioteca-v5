@@ -22,7 +22,7 @@
          <menus>
             <Menu fx:id="mBiblioteca" mnemonicParsing="false" text="Menú">
                <items>
-                  <MenuItem fx:id="miGuardar" mnemonicParsing="false" text="Guardar" />  <!-- implementar método para guardar --> 
+                  <MenuItem fx:id="miGuardar" mnemonicParsing="false" onAction="#guardar" text="Guardar" />  <!-- implementar método para guardar --> 
                   <MenuItem fx:id="miSalir" mnemonicParsing="false" onAction="#salir" text="Salir" />
                </items>
             </Menu>
@@ -47,7 +47,7 @@
                               <Insets bottom="10.0" top="10.0" />
                            </VBox.margin>
                         </ImageView>
-                        <TableView fx:id="tvAlumnos" maxWidth="700.0" maxHeight="389.0" >
+                        <TableView fx:id="tvAlumnos" maxWidth="700.0" maxHeight="386.0" >
                           <columns>
                             <TableColumn fx:id="tcTANombre" prefWidth="285.0" text="Nombre" />
                             <TableColumn fx:id="tcTACorreo" prefWidth="285.0" text="Correo" />
@@ -84,7 +84,7 @@
                               <Insets bottom="10.0" top="10.0" />
                            </VBox.margin>
                         </ImageView>
-                        <TableView fx:id="tvLibros" maxWidth="700.0" maxHeight="389.0">
+                        <TableView fx:id="tvLibros" maxWidth="700.0" maxHeight="386.0">
                            <columns>
                               <TableColumn fx:id="tcTLTipo" prefWidth="100.0" text="Tipo" />
                               <TableColumn fx:id="tcTLTitulo" prefWidth="220.0" text="Título" />

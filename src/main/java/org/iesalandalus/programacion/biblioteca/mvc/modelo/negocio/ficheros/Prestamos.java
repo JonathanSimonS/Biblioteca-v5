@@ -213,7 +213,8 @@ public class Prestamos implements IPrestamos{
 		}
 		if (coleccionPrestamos.contains(prestamo)) {
 			throw new OperationNotSupportedException("ERROR: Ya existe un préstamo igual.");
-		} else {
+		} 	
+		else {
 			coleccionPrestamos.add(new Prestamo(prestamo));
 		}
 

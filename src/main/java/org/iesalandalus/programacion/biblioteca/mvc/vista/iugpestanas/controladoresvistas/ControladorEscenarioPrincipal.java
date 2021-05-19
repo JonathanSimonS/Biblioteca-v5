@@ -2,9 +2,7 @@ package org.iesalandalus.programacion.biblioteca.mvc.vista.iugpestanas.controlad
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
 import org.iesalandalus.programacion.biblioteca.mvc.controlador.IControlador;
 import org.iesalandalus.programacion.biblioteca.mvc.modelo.dominio.Alumno;
 import org.iesalandalus.programacion.biblioteca.mvc.modelo.dominio.AudioLibro;
@@ -14,15 +12,12 @@ import org.iesalandalus.programacion.biblioteca.mvc.modelo.dominio.LibroEscrito;
 import org.iesalandalus.programacion.biblioteca.mvc.modelo.dominio.Prestamo;
 import org.iesalandalus.programacion.biblioteca.mvc.vista.iugpestanas.recursos.LocalizadorRecursos;
 import org.iesalandalus.programacion.biblioteca.mvc.vista.iugpestanas.utilidades.Dialogos;
-
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
@@ -35,7 +30,6 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -52,8 +46,7 @@ public class ControladorEscenarioPrincipal {
 	
 	private static final String CSS = "estilos/estilos.css";
 
-	// instanciar clase IControlador, para en la vista pasarle el controlador con el
-	// set
+	// instanciar clase IControlador, para en la vista pasarle el controlador con el set
 	private IControlador controladorMVC;
 
 	private static final DateTimeFormatter FORMATO_FECHA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -114,6 +107,8 @@ public class ControladorEscenarioPrincipal {
 	private ControladorAnadirLibro cAnadirLibro;
 	private Stage prestarLibro;
 	private ControladorPrestarLibro cPrestarLibro;
+	private Stage mostrarEstadistica;
+	private ControladorEstadisticaMensual cMostrarEstadistica;
 	
 	
 	public void setControladorMVC(IControlador controladorMVC) {
@@ -154,7 +149,7 @@ public class ControladorEscenarioPrincipal {
 		}
 		return durPag;
 	}
-	// devuelvo imagen según clase del objeto libro
+	// devuelvo string según clase del objeto libro
 	private String getTipoLibro(Libro libro) {
 		String tipo; 
 		if (libro instanceof AudioLibro) {
@@ -212,7 +207,7 @@ public class ControladorEscenarioPrincipal {
 			cAnadirAlumno.setControladorMVC(controladorMVC);
 			cAnadirAlumno.setAlumnos(obsAlumnos);
 			cAnadirAlumno.inicializa();
-
+			
 			Scene escenaAnadirAlumno = new Scene(raizAnadirAlumno);
 			escenaAnadirAlumno.getStylesheets().add(LocalizadorRecursos.class.getResource(CSS).toExternalForm());
 			anadirAlumno.setTitle("Añadir Alumno");
@@ -239,7 +234,6 @@ public class ControladorEscenarioPrincipal {
 			cAnadirLibro.setControladorMVC(controladorMVC);
 			cAnadirLibro.setLibros(obsLibros);
 			cAnadirLibro.inicializa();
-			actualizaLibros();
 			Scene escenaAnadirLibro = new Scene(raizAnadirLibro);
 			escenaAnadirLibro.getStylesheets().add(LocalizadorRecursos.class.getResource(CSS).toExternalForm());
 			anadirLibro.setTitle("Añadir Libro");
@@ -317,7 +311,6 @@ public class ControladorEscenarioPrincipal {
 				Dialogos.mostrarDialogoInformacion("Devolver préstamos", "Préstamo devuelto correctamente");
 			}
 
-
 		} catch (Exception e) {
 			Dialogos.mostrarDialogoError("Devolver préstamo", e.getMessage());
 		}
@@ -330,9 +323,31 @@ public class ControladorEscenarioPrincipal {
 
 	@FXML
 	void mostrarEstadistica(ActionEvent event) throws IOException {
-
+		crearMostrarEstadistica();
+		mostrarEstadistica.showAndWait();
 	}
 	
+
+	private void crearMostrarEstadistica() throws IOException {
+		if (mostrarEstadistica == null) {
+			mostrarEstadistica = new Stage();
+			FXMLLoader cargadorMostrarEstadistica = new FXMLLoader(
+					LocalizadorRecursos.class.getResource("vistas/EstadisticaMensual.fxml"));
+			VBox raizMostrarEstadistica = cargadorMostrarEstadistica.load();
+			cMostrarEstadistica = cargadorMostrarEstadistica.getController();
+			cMostrarEstadistica.setControladorMVC(controladorMVC);;
+			cMostrarEstadistica.inicializa();
+
+			Scene escenaMostrarEstadistica = new Scene(raizMostrarEstadistica);
+			escenaMostrarEstadistica.getStylesheets().add(LocalizadorRecursos.class.getResource(CSS).toExternalForm());
+			mostrarEstadistica.setTitle("Estadística mensual por curso");
+			mostrarEstadistica.initModality(Modality.APPLICATION_MODAL);
+			mostrarEstadistica.setScene(escenaMostrarEstadistica);
+			mostrarEstadistica.showAndWait();
+		} else {
+			cMostrarEstadistica.inicializa();
+		}
+	}
 
 	@FXML
 	void prestarLibro(ActionEvent event) throws IOException {
@@ -353,7 +368,7 @@ public class ControladorEscenarioPrincipal {
 			cPrestarLibro.setLibros(obsLibros);
 			cPrestarLibro.setAlumnos(obsAlumnos);
 			cPrestarLibro.inicializa();
-			
+
 			Scene escenaPrestarLibro = new Scene(raizPrestarLibro);
 			escenaPrestarLibro.getStylesheets().add(LocalizadorRecursos.class.getResource(CSS).toExternalForm());
 			prestarLibro.setTitle("Prestar Libro");
@@ -362,6 +377,12 @@ public class ControladorEscenarioPrincipal {
 		} else {
 			cPrestarLibro.inicializa();
 		}
+	}
+	@FXML
+	void guardar(ActionEvent event) {
+		if (Dialogos.mostrarDialogoConfirmacion("Guardar cambios", "¿Deseas guardar los cambios efectuados?", null)) {
+			controladorMVC.terminar();
+		} // quitar mensaje de salida
 	}
 
 	@FXML
