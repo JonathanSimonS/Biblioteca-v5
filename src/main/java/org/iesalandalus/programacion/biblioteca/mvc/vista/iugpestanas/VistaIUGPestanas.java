@@ -13,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -56,7 +57,9 @@ public class VistaIUGPestanas extends Application implements IVista{
 			escenarioPrincipal.setTitle("Biblioteca");
 			escenarioPrincipal.setScene(escena);
 			escena.getStylesheets().add(LocalizadorRecursos.class.getResource(CSS).toExternalForm());
-			escenarioPrincipal.setResizable(false);
+			// agrego icono a la aplicación
+			escenarioPrincipal.getIcons().add(new Image(LocalizadorRecursos.class.getResource("imagenes/biblioteca.png").toExternalForm()));
+			escenarioPrincipal.setResizable(true);
 			escenarioPrincipal.show();
 		} catch(Exception e) {
 			e.printStackTrace();

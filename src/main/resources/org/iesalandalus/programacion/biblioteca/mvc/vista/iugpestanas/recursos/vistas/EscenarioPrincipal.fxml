@@ -4,7 +4,6 @@
 <?import javafx.geometry.Point3D?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ContextMenu?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -36,7 +35,7 @@
             </Menu>
          </menus>
       </MenuBar>
-      <TabPane fx:id="tpBiblioteca" nodeOrientation="LEFT_TO_RIGHT" prefHeight="573.0" side="BOTTOM" tabClosingPolicy="UNAVAILABLE" tabMinWidth="230.0">
+      <TabPane fx:id="tpBiblioteca" prefHeight="573.0" side="BOTTOM" tabClosingPolicy="UNAVAILABLE" tabMinWidth="230.0">
          <tabs>
             <Tab fx:id="tAlumnos" text="ALUMNOS">
                <content>
@@ -71,27 +70,32 @@
                               </ContextMenu>
                            </contextMenu>
                         </TableView>
-                        <HBox alignment="CENTER" prefHeight="70.0" prefWidth="750.0" spacing="20.0">
+                        <HBox alignment="CENTER" prefHeight="70.0" prefWidth="750.0">
                            <children>
-                              <Label text="Buscar alumno por nombre:">
+                              <Button fx:id="btBuscarAlumno" mnemonicParsing="false" onAction="#buscarAlumno" prefHeight="0.0" prefWidth="0.0">
                                  <graphic>
-                                    <ImageView fitHeight="30.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="18.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../imagenes/buscar.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
+                              </Button>
+                              <ImageView fx:id="ivFlechaA" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../imagenes/flechader.png" />
+                                 </image>
+                              </ImageView>
+                              <TextField fx:id="tfBuscarAlumno" prefHeight="24.0" prefWidth="250.0" promptText="Buscar alumno por nombre...">
                                  <HBox.margin>
-                                    <Insets />
-                                 </HBox.margin>
-                              </Label>
-                              <TextField fx:id="tfBuscarAlumno" prefHeight="24.0" prefWidth="250.0" promptText="Buscar..." />
-                              <Button fx:id="btLimpiar" alignment="CENTER" contentDisplay="CENTER" maxHeight="27.0" maxWidth="43.0" mnemonicParsing="false" onAction="#limpiar" prefHeight="27.0" prefWidth="34.0" snapToPixel="false">
+                                    <Insets left="20.0" />
+                                 </HBox.margin></TextField>
+                              <Button fx:id="btLimpiarAlumno" alignment="CENTER" contentDisplay="CENTER" maxHeight="25.0" maxWidth="25.0" mnemonicParsing="false" onAction="#limpiar" prefHeight="25.0" prefWidth="25.0" >
                                  <HBox.margin>
-                                    <Insets right="20.0" />
+                                    <Insets left="20.0" />
                                  </HBox.margin>
                                  <graphic>
-                                    <ImageView fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="18.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../imagenes/escoba.png" />
                                        </image>
@@ -104,7 +108,8 @@
                   </VBox>
                </content>
             </Tab>
-            <Tab fx:id="tLibros" text="LIBROS">
+            <!-- <div>Iconos diseñados por <a href="https://www.flaticon.es/autores/surang" title="surang">surang</a> from <a href="https://www.flaticon.es/" title="Flaticon">www.flaticon.es</a></div>
+             --> <Tab fx:id="tLibros" text="LIBROS">
                <content>
                   <VBox fx:id="vbLibros" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
                      <children>
@@ -140,25 +145,37 @@
                               </ContextMenu>
                            </contextMenu>
                         </TableView>
-                        <HBox alignment="CENTER" prefHeight="70.0" prefWidth="750.0" spacing="20.0">
+                        <HBox alignment="CENTER" prefHeight="70.0" prefWidth="750.0">
                            <children>
-                              <Label text="Buscar libro por título:">
+                              <Button fx:id="btBuscarLibro" mnemonicParsing="false" onAction="#buscarLibro" prefHeight="26.0" prefWidth="7.0">
                                  <graphic>
-                                    <ImageView fitHeight="30.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="18.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../imagenes/buscar.png" />
-                                       </image></ImageView>
+                                       </image>
+                                    </ImageView>
                                  </graphic>
-                              </Label>
-                              <TextField fx:id="tfBuscarLibro" prefHeight="24.0" prefWidth="250.0" promptText="Buscar..." />
-                              <Button fx:id="btLimpiar" mnemonicParsing="false" onAction="#limpiar">
+                              </Button>
+                              <ImageView fx:id="ivFlechaL" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../imagenes/flechader.png" />
+                                 </image>
+                              </ImageView>
+                              <TextField fx:id="tfBuscarLibro" prefHeight="24.0" prefWidth="250.0" promptText="Buscar libro por título...">
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin></TextField>
+                              <Button fx:id="btLimpiarLibro" mnemonicParsing="false" onAction="#limpiar" prefHeight="26.0" prefWidth="14.0">
                                  <graphic>
-                                    <ImageView fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="18.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../imagenes/escoba.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
                               </Button>
                            </children>
                         </HBox>

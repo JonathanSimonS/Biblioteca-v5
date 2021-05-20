@@ -26,13 +26,16 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -85,7 +88,13 @@ public class ControladorEscenarioPrincipal {
 	@FXML   private MenuItem miBuscarPrestamo;
     @FXML   private TextField tfBuscarLibro;
     @FXML   private TextField tfBuscarAlumno;
-    @FXML   private Button btLimpiar;
+    @FXML   private Button btLimpiarAlumno;
+    @FXML   private Button btLimpiarLibro;
+
+    @FXML   private Button btBuscarLibro;
+    @FXML   private ImageView ivFlechaL;
+    @FXML   private Button btBuscarAlumno;
+    @FXML   private ImageView ivFlechaA;
 		
 	@FXML	private TableView<Alumno> tvAlumnos;
 	@FXML	private TableColumn<Alumno, String> tcTANombre;
@@ -121,9 +130,17 @@ public class ControladorEscenarioPrincipal {
 	}
 
 	public void initialize() {
+		
+		tfBuscarAlumno.setVisible(false);
+		tfBuscarLibro.setVisible(false);
+		btLimpiarAlumno.setVisible(false);
+		btLimpiarLibro.setVisible(false);
+ 
 		tcTANombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
 		tcTACorreo.setCellValueFactory(new PropertyValueFactory<>("correo"));
 		tcTACurso.setCellValueFactory(new PropertyValueFactory<>("curso"));
+		// permito que se puedan seleccionar varias filas (falta implementar borrado de varias filas)
+		//tvAlumnos.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		tvAlumnos.setItems(obsAlumnos);
 		
 		// implemento búsqueda de alumnos
@@ -145,6 +162,8 @@ public class ControladorEscenarioPrincipal {
 		tcTLAutor.setCellValueFactory(new PropertyValueFactory<>("autor"));
 		tcTLPaginas.setCellValueFactory(libro -> new SimpleStringProperty(getLibroString(libro.getValue())));
 		tcTLPuntoss.setCellValueFactory(libro -> new SimpleStringProperty(Float.toString(libro.getValue().getPuntos())));
+		// permito que se puedan seleccionar varias filas
+		//tvLibros.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		tvLibros.setItems(obsLibros);
 		
 		// implemento búsqueda de libros
@@ -165,6 +184,8 @@ public class ControladorEscenarioPrincipal {
 		tcTPLibro.setCellValueFactory(prestamo -> new SimpleStringProperty(prestamo.getValue().getLibro().getTitulo()));
 		tcTPFechaPrestamo.setCellValueFactory(prestamo -> new SimpleStringProperty(FORMATO_FECHA.format(prestamo.getValue().getFechaPrestamo())));
 		tcTPFechaDevolucion.setCellValueFactory(prestamo -> new SimpleStringProperty(getFechaDevo(prestamo.getValue().getFechaDevolucion())));
+		// permito que se puedan seleccionar varias filas
+		//tvPrestamos.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		tvPrestamos.setItems(obsPrestamos);
 	}
 
@@ -442,6 +463,33 @@ public class ControladorEscenarioPrincipal {
 			controladorMVC.terminar();
 		} // quitar mensaje de salida
 	}
+	
+	// método para habilitar o deshabilitar la búsqueda     tfBuscarAlumno.setVisible(false);
+	@FXML
+    void buscarAlumno(ActionEvent event) {
+		if(tfBuscarAlumno.isVisible()) {
+			tfBuscarAlumno.setVisible(false);
+			btLimpiarAlumno.setVisible(false);
+			ivFlechaA.setImage(new Image(LocalizadorRecursos.class.getResourceAsStream("imagenes/flechader.png")));
+		} else {
+			tfBuscarAlumno.setVisible(true);
+			btLimpiarAlumno.setVisible(true);
+			ivFlechaA.setImage(new Image(LocalizadorRecursos.class.getResourceAsStream("imagenes/flechaizq.png")));
+		}		
+    }
+	@FXML
+    void buscarLibro(ActionEvent event) {
+		if(tfBuscarLibro.isVisible()) {
+			tfBuscarLibro.setVisible(false);
+			btLimpiarLibro.setVisible(false);
+			ivFlechaL.setImage(new Image(LocalizadorRecursos.class.getResourceAsStream("imagenes/flechader.png")));
+		} else {
+			tfBuscarLibro.setVisible(true);
+			btLimpiarLibro.setVisible(true);
+			ivFlechaL.setImage(new Image(LocalizadorRecursos.class.getResourceAsStream("imagenes/flechaizq.png")));
+
+		}
+    }
 
 	@FXML
 	void salir(ActionEvent event) {
@@ -453,7 +501,8 @@ public class ControladorEscenarioPrincipal {
 
 	@FXML 
 	public void limpiar() {
-		
+		tfBuscarAlumno.clear();
+		tfBuscarLibro.clear();
 	}
 
 }
