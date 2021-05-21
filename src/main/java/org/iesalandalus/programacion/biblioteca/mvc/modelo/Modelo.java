@@ -1,6 +1,5 @@
 package org.iesalandalus.programacion.biblioteca.mvc.modelo;
 
-import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
