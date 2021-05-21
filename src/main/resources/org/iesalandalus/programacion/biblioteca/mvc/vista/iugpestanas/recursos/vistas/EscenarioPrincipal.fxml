@@ -24,7 +24,7 @@
          <menus>
             <Menu fx:id="mBiblioteca" mnemonicParsing="false" text="Menú">
                <items>
-                  <MenuItem fx:id="miGuardar" mnemonicParsing="false" onAction="#guardar" text="Guardar" />  <!-- implementar método para guardar --> 
+                  <MenuItem fx:id="miGuardar" mnemonicParsing="false" onAction="#guardar" text="Guardar" /> 
                   <MenuItem fx:id="miSalir" mnemonicParsing="false" onAction="#salir" text="Salir" />
                </items>
             </Menu>

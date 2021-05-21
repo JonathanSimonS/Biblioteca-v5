@@ -26,7 +26,7 @@ public class MongoDB {
 	
 	public static final DateTimeFormatter FORMATO_FECHA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	
-	private static final String SERVIDOR = "localhost";	
+	private static final String SERVIDOR = "localhost";
 	private static final int PUERTO = 27017;
 	private static final String BD = "biblioteca";
 	private static final String USUARIO = "biblioteca";

@@ -11,8 +11,8 @@ import org.iesalandalus.programacion.biblioteca.mvc.vista.IVista;
 
 /**
  * @author Jonathan Simón
- *
  **/
+
 public class MainApp  {
 
 	public static void main(String[] args) {
@@ -40,7 +40,8 @@ public class MainApp  {
 		for (String argumento : args) {
 			if (argumento.equalsIgnoreCase("-fdficheros")) {
 				fuenteDatos = FactoriaFuenteDatos.FICHEROS.crear();
-			} else if (argumento.equalsIgnoreCase("-fdmongodb")) {
+			} 
+			else if (argumento.equalsIgnoreCase("-fdmongodb")) {
 				fuenteDatos = FactoriaFuenteDatos.MONGODB.crear();
 			}
 		}

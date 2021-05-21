@@ -5,18 +5,12 @@ import java.util.List;
 import java.util.Map;
 
 import javax.naming.OperationNotSupportedException;
-
-import org.iesalandalus.programacion.biblioteca.mvc.modelo.IFuenteDatos;
 import org.iesalandalus.programacion.biblioteca.mvc.modelo.IModelo;
-import org.iesalandalus.programacion.biblioteca.mvc.modelo.Modelo;
 import org.iesalandalus.programacion.biblioteca.mvc.modelo.dominio.*;
-import org.iesalandalus.programacion.biblioteca.mvc.modelo.negocio.ficheros.FactoriaFuenteDatosFicheros;
 import org.iesalandalus.programacion.biblioteca.mvc.vista.IVista;
-import org.iesalandalus.programacion.biblioteca.mvc.vista.texto.VistaTexto;
 
 /**
  * @author Jonathan Simón
- * @version v2
  *
  */
 
@@ -34,9 +28,7 @@ public class Controlador implements IControlador {
 		if (vista == null) {
 			throw new IllegalArgumentException("Ha habido un error, la vista no puede ser nula.");
 		}
-		
-		IFuenteDatos iFuenteDatos = new FactoriaFuenteDatosFicheros();
-		this.modelo = new Modelo(iFuenteDatos );
+		this.modelo = modelo;
 		this.vista = vista;
 		this.vista.setControlador(this);
 	}

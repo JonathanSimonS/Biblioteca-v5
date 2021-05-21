@@ -130,7 +130,7 @@ public class ControladorEscenarioPrincipal {
 	}
 
 	public void initialize() {
-		
+		miGuardar.setVisible(false);
 		tfBuscarAlumno.setVisible(false);
 		tfBuscarLibro.setVisible(false);
 		btLimpiarAlumno.setVisible(false);
@@ -459,12 +459,13 @@ public class ControladorEscenarioPrincipal {
 	}
 	@FXML
 	void guardar(ActionEvent event) {
+		
 		if (Dialogos.mostrarDialogoConfirmacion("Guardar cambios", "¿Deseas guardar los cambios efectuados?", null)) {
 			controladorMVC.terminar();
-		} // quitar mensaje de salida
+		} 
 	}
 	
-	// método para habilitar o deshabilitar la búsqueda     tfBuscarAlumno.setVisible(false);
+	// método para habilitar o deshabilitar la búsqueda     
 	@FXML
     void buscarAlumno(ActionEvent event) {
 		if(tfBuscarAlumno.isVisible()) {
